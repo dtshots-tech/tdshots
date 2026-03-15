@@ -41,9 +41,11 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
+    top: 0;
+    left: 0;
     opacity: 0;
+    transition: width 0.2s, height 0.2s, opacity 0.3s;
+    will-change: transform;
   }
   .cursor-ring {
     position: fixed;
@@ -53,8 +55,11 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    transition: all 0.15s ease;
+    top: 0;
+    left: 0;
     opacity: 0;
+    transition: width 0.2s, height 0.2s, opacity 0.3s;
+    will-change: transform;
   }
 
   /* Nav */
@@ -1089,44 +1094,47 @@
 </footer>
 
 <script>
-  // Touch device check
-  const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+  // ── Cursor ──
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-  if (!isTouchDevice) {
-    cursor.style.opacity = '0';
-    ring.style.opacity = '0';
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      cursor.style.opacity = '1';
-      ring.style.opacity = '1';
-      cursor.style.left = mouseX - 6 + 'px';
-      cursor.style.top = mouseY - 6 + 'px';
-    });
-    function animateRing() {
-      ringX += (mouseX - ringX - 20) * 0.12;
-      ringY += (mouseY - ringY - 20) * 0.12;
-      ring.style.left = ringX + 'px';
-      ring.style.top = ringY + 'px';
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform = 'scale(2)';
-        ring.style.borderColor = 'rgba(232,130,12,0.8)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.transform = 'scale(1)';
-        ring.style.borderColor = 'rgba(232,130,12,0.5)';
-      });
-    });
-  } else {
+  if (isTouch) {
     cursor.style.display = 'none';
     ring.style.display = 'none';
     document.body.style.cursor = 'auto';
+  } else {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    window.addEventListener('mousemove', function(e) {
+      mx = e.clientX;
+      my = e.clientY;
+      cursor.style.opacity = '1';
+      ring.style.opacity = '1';
+      cursor.style.transform = 'translate(' + (mx - 6) + 'px, ' + (my - 6) + 'px)';
+    });
+
+    (function loop() {
+      rx += (mx - rx - 20) * 0.15;
+      ry += (my - ry - 20) * 0.15;
+      ring.style.transform = 'translate(' + rx + 'px, ' + ry + 'px)';
+      requestAnimationFrame(loop);
+    })();
+
+    document.querySelectorAll('a, button').forEach(function(el) {
+      el.addEventListener('mouseenter', function() {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        ring.style.width = '56px';
+        ring.style.height = '56px';
+      });
+      el.addEventListener('mouseleave', function() {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        ring.style.width = '40px';
+        ring.style.height = '40px';
+      });
+    });
   }
 
   // Hamburger
