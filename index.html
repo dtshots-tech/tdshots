@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
 
   :root {
     --black: #080808;
@@ -29,20 +29,19 @@
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
-    cursor: none;
+    cursor: none !important;
   }
-
-  a, button { cursor: none; }
 
   /* Custom cursor */
   .cursor {
     position: fixed;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: #ff3c3c;
+    border: 2px solid #ffffff;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 99999;
+    z-index: 999999;
     top: 0;
     left: 0;
     opacity: 0;
@@ -50,17 +49,17 @@
   }
   .cursor-ring {
     position: fixed;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border: 2px solid #ff3c3c;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 99998;
+    z-index: 999998;
     top: 0;
     left: 0;
     opacity: 0;
     will-change: transform;
-    transition: width 0.15s, height 0.15s;
+    transition: width 0.15s, height 0.15s, border-color 0.15s;
   }
 
   /* Navigation */
