@@ -2163,12 +2163,21 @@
   const ring = document.getElementById('cursorRing');
 
   if (!isTouchDevice) {
+    // Hide until first mouse move
+    cursor.style.opacity = '0';
+    ring.style.opacity = '0';
+
     let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
     document.addEventListener('mousemove', e => {
-      mouseX = e.clientX; mouseY = e.clientY;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.opacity = '1';
+      ring.style.opacity = '1';
       cursor.style.left = mouseX - 6 + 'px';
       cursor.style.top = mouseY - 6 + 'px';
     });
+
     function animateRing() {
       ringX += (mouseX - ringX - 20) * 0.12;
       ringY += (mouseY - ringY - 20) * 0.12;
@@ -2177,6 +2186,7 @@
       requestAnimationFrame(animateRing);
     }
     animateRing();
+
     document.querySelectorAll('a, button, input, textarea, select').forEach(el => {
       el.addEventListener('mouseenter', () => {
         cursor.style.transform = 'scale(2)';
