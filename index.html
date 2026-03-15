@@ -32,34 +32,35 @@
     cursor: none;
   }
 
+  a, button { cursor: none; }
+
   /* Custom cursor */
   .cursor {
     position: fixed;
-    width: 12px;
-    height: 12px;
-    background: var(--red-bright);
+    width: 8px;
+    height: 8px;
+    background: #ff3c3c;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99999;
     top: 0;
     left: 0;
     opacity: 0;
-    transition: width 0.2s, height 0.2s, opacity 0.3s;
     will-change: transform;
   }
   .cursor-ring {
     position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(231,76,60,0.5);
+    width: 36px;
+    height: 36px;
+    border: 2px solid #ff3c3c;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 99998;
     top: 0;
     left: 0;
     opacity: 0;
-    transition: width 0.2s, height 0.2s, opacity 0.3s;
     will-change: transform;
+    transition: width 0.15s, height 0.15s;
   }
 
   /* Navigation */
@@ -2248,45 +2249,43 @@
 
 <script>
   // ── Cursor ──
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  var cur = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
 
-  if (isTouch) {
-    cursor.style.display = 'none';
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    cur.style.display = 'none';
     ring.style.display = 'none';
     document.body.style.cursor = 'auto';
   } else {
-    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.body.style.cursor = 'none';
+    var rx = 0, ry = 0, mx = 0, my = 0;
 
-    window.addEventListener('mousemove', function(e) {
+    document.addEventListener('mousemove', function(e) {
       mx = e.clientX;
       my = e.clientY;
-      cursor.style.opacity = '1';
-      ring.style.opacity = '1';
-      cursor.style.transform = 'translate(' + (mx - 6) + 'px, ' + (my - 6) + 'px)';
+      cur.style.opacity = '1';
+      ring.style.opacity = '0.8';
+      cur.style.transform = 'translate(' + (mx - 4) + 'px,' + (my - 4) + 'px)';
     });
 
-    (function loop() {
-      rx += (mx - rx - 20) * 0.15;
-      ry += (my - ry - 20) * 0.15;
-      ring.style.transform = 'translate(' + rx + 'px, ' + ry + 'px)';
-      requestAnimationFrame(loop);
-    })();
+    function animRing() {
+      rx += (mx - rx - 18) * 0.18;
+      ry += (my - ry - 18) * 0.18;
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
 
-    document.querySelectorAll('a, button').forEach(function(el) {
-      el.addEventListener('mouseenter', function() {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.width = '56px';
-        ring.style.height = '56px';
-      });
-      el.addEventListener('mouseleave', function() {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '40px';
-        ring.style.height = '40px';
-      });
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.closest('a, button')) {
+        ring.style.width = '52px';
+        ring.style.height = '52px';
+        ring.style.borderColor = '#ffffff';
+      } else {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = '#ff3c3c';
+      }
     });
   }
 
