@@ -7,7 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { cursor: none !important; }
 
   :root {
     --black: #080808;
@@ -41,11 +42,10 @@
     border: 2px solid #ffffff;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 999999;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    will-change: transform;
+    z-index: 2147483647;
+    top: -50px;
+    left: -50px;
+    /* NO will-change, NO transform — these create stacking contexts that break z-index */
   }
   .cursor-ring {
     position: fixed;
@@ -54,12 +54,15 @@
     border: 2px solid #ff3c3c;
     border-radius: 50%;
     pointer-events: none;
-    z-index: 999998;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    will-change: transform;
+    z-index: 2147483646;
+    top: -50px;
+    left: -50px;
     transition: width 0.15s, height 0.15s, border-color 0.15s;
+    /* NO will-change, NO transform */
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+    html, body { cursor: auto !important; }
   }
 
   /* Navigation */
@@ -1567,8 +1570,6 @@
 
   /* ── Mobile (≤768px) ── */
   @media (max-width: 768px) {
-    body { cursor: auto; }
-    .cursor, .cursor-ring { display: none; }
 
     /* Nav */
     nav { padding: 18px 20px; background: rgba(8,8,8,0.97); }
@@ -2248,45 +2249,45 @@
 
 <script>
   // ── Cursor ──
-  var cur = document.getElementById('cursor');
+  var cur  = document.getElementById('cursor');
   var ring = document.getElementById('cursorRing');
+  var mx = -50, my = -50, rx = -50, ry = -50;
 
-  if (window.matchMedia('(pointer: coarse)').matches) {
-    cur.style.display = 'none';
-    ring.style.display = 'none';
-    document.body.style.cursor = 'auto';
-  } else {
-    document.body.style.cursor = 'none';
-    var rx = 0, ry = 0, mx = 0, my = 0;
+  // Move dot instantly with mouse
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = (mx - 5) + 'px';
+    cur.style.top  = (my - 5) + 'px';
+  });
 
-    document.addEventListener('mousemove', function(e) {
-      mx = e.clientX;
-      my = e.clientY;
-      cur.style.opacity = '1';
-      ring.style.opacity = '0.8';
-      cur.style.transform = 'translate(' + (mx - 4) + 'px,' + (my - 4) + 'px)';
-    });
+  // Ring follows with smooth lag — left/top only, no transform
+  (function animRing() {
+    rx += (mx - rx - 19) * 0.13;
+    ry += (my - ry - 19) * 0.13;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
 
-    function animRing() {
-      rx += (mx - rx - 18) * 0.18;
-      ry += (my - ry - 18) * 0.18;
-      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
-      requestAnimationFrame(animRing);
+  // Grow on interactive elements
+  document.addEventListener('mouseover', function(e) {
+    if (e.target.closest('a, button')) {
+      ring.style.width = '52px'; ring.style.height = '52px';
+      ring.style.borderColor = '#ffffff';
+    } else {
+      ring.style.width = '38px'; ring.style.height = '38px';
+      ring.style.borderColor = '#ff3c3c';
     }
-    animRing();
+  });
 
-    document.addEventListener('mouseover', function(e) {
-      if (e.target.closest('a, button')) {
-        ring.style.width = '52px';
-        ring.style.height = '52px';
-        ring.style.borderColor = '#ffffff';
-      } else {
-        ring.style.width = '36px';
-        ring.style.height = '36px';
-        ring.style.borderColor = '#ff3c3c';
-      }
-    });
-  }
+  // iOS: hide on first touch
+  window.addEventListener('touchstart', function() {
+    cur.style.display  = 'none';
+    ring.style.display = 'none';
+    document.documentElement.style.cursor = 'auto';
+    document.body.style.cursor = 'auto';
+  }, { once: true });
 
   // Hamburger menu
   const hamburger = document.getElementById('hamburger');

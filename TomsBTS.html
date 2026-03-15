@@ -23,6 +23,8 @@
 
   html { scroll-behavior: smooth; }
 
+  html, body { cursor: none !important; }
+
   body {
     background: var(--black);
     color: var(--white);
@@ -40,26 +42,28 @@
     background: var(--orange);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: width 0.2s, height 0.2s, opacity 0.3s;
-    will-change: transform;
+    z-index: 2147483647;
+    top: -50px;
+    left: -50px;
+    opacity: 1;
+    transition: width 0.15s, height 0.15s;
   }
   .cursor-ring {
     position: fixed;
     width: 40px;
     height: 40px;
-    border: 1px solid rgba(232,130,12,0.5);
+    border: 1px solid rgba(232,130,12,0.6);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: width 0.2s, height 0.2s, opacity 0.3s;
-    will-change: transform;
+    z-index: 2147483646;
+    top: -50px;
+    left: -50px;
+    opacity: 1;
+    transition: width 0.15s, height 0.15s;
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .cursor, .cursor-ring { display: none !important; }
+    html, body { cursor: auto !important; }
   }
 
   /* Nav */
@@ -782,8 +786,6 @@
 
   /* Responsive */
   @media (max-width: 768px) {
-    body { cursor: auto; }
-    .cursor, .cursor-ring { display: none; }
     nav { padding: 16px 20px; background: rgba(8,8,8,0.97); }
     .nav-links { display: none; }
     .hamburger { display: flex; }
@@ -1095,47 +1097,42 @@
 
 <script>
   // ── Cursor ──
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  var cur  = document.getElementById('cursor');
+  var ring = document.getElementById('cursorRing');
+  var mx = -50, my = -50, rx = -50, ry = -50;
 
-  if (isTouch) {
-    cursor.style.display = 'none';
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = (mx - 6) + 'px';
+    cur.style.top  = (my - 6) + 'px';
+  });
+
+  (function loop() {
+    rx += (mx - rx - 20) * 0.13;
+    ry += (my - ry - 20) * 0.13;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a, button').forEach(function(el) {
+    el.addEventListener('mouseenter', function() {
+      cur.style.width = '20px'; cur.style.height = '20px';
+      ring.style.width = '56px'; ring.style.height = '56px';
+    });
+    el.addEventListener('mouseleave', function() {
+      cur.style.width = '12px'; cur.style.height = '12px';
+      ring.style.width = '40px'; ring.style.height = '40px';
+    });
+  });
+
+  window.addEventListener('touchstart', function() {
+    cur.style.display = 'none';
     ring.style.display = 'none';
+    document.documentElement.style.cursor = 'auto';
     document.body.style.cursor = 'auto';
-  } else {
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    window.addEventListener('mousemove', function(e) {
-      mx = e.clientX;
-      my = e.clientY;
-      cursor.style.opacity = '1';
-      ring.style.opacity = '1';
-      cursor.style.transform = 'translate(' + (mx - 6) + 'px, ' + (my - 6) + 'px)';
-    });
-
-    (function loop() {
-      rx += (mx - rx - 20) * 0.15;
-      ry += (my - ry - 20) * 0.15;
-      ring.style.transform = 'translate(' + rx + 'px, ' + ry + 'px)';
-      requestAnimationFrame(loop);
-    })();
-
-    document.querySelectorAll('a, button').forEach(function(el) {
-      el.addEventListener('mouseenter', function() {
-        cursor.style.width = '20px';
-        cursor.style.height = '20px';
-        ring.style.width = '56px';
-        ring.style.height = '56px';
-      });
-      el.addEventListener('mouseleave', function() {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        ring.style.width = '40px';
-        ring.style.height = '40px';
-      });
-    });
-  }
+  }, { once: true });
 
   // Hamburger
   const hamburger = document.getElementById('hamburger');
