@@ -43,6 +43,7 @@
     z-index: 9999;
     transition: transform 0.1s ease;
     mix-blend-mode: difference;
+    opacity: 0;
   }
   .cursor-ring {
     position: fixed;
@@ -53,6 +54,7 @@
     pointer-events: none;
     z-index: 9998;
     transition: all 0.15s ease;
+    opacity: 0;
   }
 
   /* Navigation */
@@ -2239,7 +2241,7 @@
   <div class="footer-copy">© 2026 T&amp;DSHOTS</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // Detect touch device — disable custom cursor
   const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
   const cursor = document.getElementById('cursor');
