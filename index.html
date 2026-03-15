@@ -1278,6 +1278,56 @@
     margin-bottom: 60px;
   }
 
+  .bmc-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    background: var(--charcoal);
+    border: 1px solid rgba(255,221,0,0.2);
+    border-left: 3px solid #FFDD00;
+    padding: 28px 40px;
+    max-width: 680px;
+    margin: 32px auto 0;
+    flex-wrap: wrap;
+  }
+
+  .bmc-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #FFDD00;
+    margin-bottom: 8px;
+  }
+
+  .bmc-desc {
+    font-size: 13px;
+    color: var(--grey);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 400px;
+  }
+
+  .bmc-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFDD00;
+    color: #000;
+    padding: 14px 28px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+    flex-shrink: 0;
+  }
+  .bmc-btn::before { content: '☕'; font-size: 16px; }
+  .bmc-btn:hover { opacity: 0.85; }
+
   /* Free banner */
   .free-banner {
     display: inline-flex;
@@ -1913,7 +1963,7 @@
     <div class="business-card">
       <div class="bc-logo">T&amp;D<span>.</span>SHOTS</div>
       <div class="bc-line"></div>
-      <div class="bc-url">www.tdshots.co.uk</div>
+      <div class="bc-url">tdshots.uk</div>
     </div>
   </div>
 </section>
@@ -1970,6 +2020,21 @@
       <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
       Instagram
     </a>
+    <a href="/cdn-cgi/l/email-protection#ceaaa0babda6a1a1babd8ea9a3afa7a2e0ada1a3" class="btn-primary" style="display:inline-flex;align-items:center;gap:12px;background:var(--charcoal);border:1px solid rgba(255,255,255,0.12);">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Email Us
+    </a>
+    <a href="https://buymeacoffee.com/tndshots" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;align-items:center;gap:12px;background:#FFDD00;color:#000;font-weight:600;">
+      ☕ Buy Us a Coffee
+    </a>
+  </div>
+
+  <div class="bmc-banner">
+    <div class="bmc-left">
+      <div class="bmc-title">☕ ENJOY WHAT WE DO?</div>
+      <div class="bmc-desc">Everything we do is free — the prints, the content, all of it. If you want to help keep us out on the streets with a camera and a printer, buying us a coffee goes a long way.</div>
+    </div>
+    <a href="https://buymeacoffee.com/tndshots" target="_blank" rel="noopener" class="bmc-btn">Buy Us a Coffee</a>
   </div>
 
   <div class="free-banner">
@@ -1991,11 +2056,13 @@
     <li><a href="#youtube">YouTube</a></li>
     <li><a href="https://www.youtube.com/@dntshots" target="_blank">@dntshots</a></li>
     <li><a href="https://www.instagram.com/emdnifrevenllouy?igsh=bXNiNDZzcm4ydnRs" target="_blank">Instagram</a></li>
+    <li><a href="mailto:dntshoots@gmail.com">dntshoots@gmail.com</a></li>
+    <li><a href="https://buymeacoffee.com/tndshots" target="_blank" style="color:#FFDD00;">☕ Buy Us a Coffee</a></li>
   </ul>
   <div class="footer-copy">© 2025 T&amp;DShots</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Detect touch device — disable custom cursor
   const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
   const cursor = document.getElementById('cursor');
@@ -2082,14 +2149,4 @@
         entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.step, .price-card, .gallery-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-  });
-</script>
-</body>
-</html>
+  }, { threshold: 0.1 
