@@ -121,7 +121,24 @@ section { padding: 100px 60px; }
 .tom-text .sec-title { margin-bottom: 24px; }
 .tom-desc { font-size: 15px; line-height: 1.9; color: var(--light); margin-bottom: 18px; }
 
-/* ── VIDEO GALLERY ── */
+/* ── GEAR ── */
+.gear { background: var(--black); }
+.gear-intro { font-size: 15px; color: var(--light); max-width: 540px; margin-bottom: 52px; line-height: 1.8; }
+.gear-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+.gear-card { background: var(--card); padding: 36px 28px; position: relative; overflow: hidden; transition: background .3s; display: flex; flex-direction: column; }
+.gear-card:hover { background: #1a1a1a; }
+.gear-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.gear-card:hover::before { transform: scaleX(1); }
+.gear-icon { font-size: 28px; margin-bottom: 18px; }
+.gear-cat { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+.gear-name { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; margin-bottom: 14px; line-height: 1; }
+.gear-desc { font-size: 13px; line-height: 1.85; color: var(--grey); flex: 1; }
+.gear-badge { display: inline-block; margin-top: 20px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(232,130,12,.3); padding: 5px 12px; align-self: flex-start; }
+.gear-badge-soon { color: var(--grey) !important; border-color: var(--border) !important; }
+.gear-card-coming { opacity: 0.7; }
+.gear-card-coming::before { background: var(--grey) !important; }
+
+/* ── VG ── */
 .vg { background: var(--off); }
 .vg-intro { font-size: 15px; color: var(--light); max-width: 580px; margin-bottom: 52px; line-height: 1.8; }
 .vg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -170,6 +187,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   .mv-grid, .tom-grid { grid-template-columns: 1fr; gap: 40px; }
   .creators-grid, .vg-grid { grid-template-columns: 1fr; }
   .bts-steps { grid-template-columns: 1fr; }
+  .gear-grid { grid-template-columns: 1fr 1fr; }
   .cta-strip { padding: 48px 22px; flex-direction: column; text-align: center; }
   .btn-white { width: 100%; justify-content: center; }
   footer { flex-direction: column; text-align: center; padding: 28px 22px; }
@@ -194,6 +212,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <li><a href="#mv">The Video</a></li>
     <li><a href="#creators">Creators</a></li>
     <li><a href="#tom">Meet Tom</a></li>
+    <li><a href="#gear">Gear</a></li>
     <li><a href="#vg">All Videos</a></li>
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
   </ul>
@@ -332,6 +351,48 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
       <p class="tom-desc">We're small, we're new, and we're just getting started — but projects like this show exactly what T&DSHOTS is capable of.</p>
       <a href="index.html#team" class="btn btn-orange" style="margin-top:32px;">Meet The Full Team →</a>
     </div>
+  </div>
+</section>
+
+<!-- GEAR -->
+<section class="gear" id="gear">
+  <div class="sec-label reveal">The Setup</div>
+  <h2 class="sec-title reveal">TOM'S GEAR.</h2>
+  <p class="gear-intro reveal">Every shot on this page was taken with this kit. No excuses, no shortcuts — just knowing your tools.</p>
+  <div class="gear-grid">
+
+    <div class="gear-card reveal">
+      <div class="gear-icon">📷</div>
+      <div class="gear-cat">Body</div>
+      <div class="gear-name">Sony A6400</div>
+      <p class="gear-desc">Tom's daily shooter. APS-C sensor, fast autofocus, and compact enough to take anywhere. Whether it's a car park at midnight or a music video shoot on the streets — this is what's in the bag.</p>
+      <div class="gear-badge">Daily Driver</div>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-icon">🔭</div>
+      <div class="gear-cat">Lens</div>
+      <div class="gear-name">24–70mm Zoom</div>
+      <p class="gear-desc">The go-to lens. Wide enough to get the whole car in a tight car park, long enough to compress a shot and make it look cinematic. Versatile, sharp, and always on the camera.</p>
+      <div class="gear-badge">Go-To</div>
+    </div>
+
+    <div class="gear-card reveal">
+      <div class="gear-icon">🎯</div>
+      <div class="gear-cat">Lens</div>
+      <div class="gear-name">50mm Prime</div>
+      <p class="gear-desc">When the shot needs to be clean. The 50mm gives a natural field of view with that bit of background separation that makes a car portrait look intentional rather than accidental.</p>
+      <div class="gear-badge">Portrait Pick</div>
+    </div>
+
+    <div class="gear-card reveal gear-card-coming">
+      <div class="gear-icon">🖨️</div>
+      <div class="gear-cat">Printer</div>
+      <div class="gear-name">Canon Selphy</div>
+      <p class="gear-desc">The bit that makes T&DSHOTS different. Tom's looking at adding a Canon Selphy to the kit — a compact dye-sub printer that means photos go straight from camera to windscreen on the spot.</p>
+      <div class="gear-badge gear-badge-soon">Coming Soon</div>
+    </div>
+
   </div>
 </section>
 

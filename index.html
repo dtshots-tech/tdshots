@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T&DSHOTS Automotive Photography</title>
+<title>T&DSHOTS — Automotive Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
@@ -140,9 +140,19 @@ section { padding: 100px 60px; }
 
 /* LOCATION */
 .location-section { background: var(--black); }
-.location-intro { font-size: 15px; color: var(--light); max-width: 560px; margin-bottom: 52px; line-height: 1.8; }
+.location-intro { font-size: 15px; color: var(--light); max-width: 600px; margin-bottom: 40px; line-height: 1.8; }
+.map-wrap { margin-bottom: 48px; border: 1px solid var(--border); overflow: hidden; }
+.map-instruction { background: var(--card); padding: 12px 18px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+.map-pin-icon { font-size: 16px; }
+#map { height: 420px; width: 100%; background: var(--card); }
+#map, #map * { cursor: none !important; }
+.map-selected { background: var(--card); padding: 12px 18px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+#mapCoords { font-size: 12px; color: var(--light); letter-spacing: 1px; font-family: monospace; }
+.map-clear { background: none; border: 1px solid var(--border); color: var(--grey); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; font-family: 'DM Sans', sans-serif; transition: color .2s, border-color .2s; display: none; }
+.map-clear.visible { display: block; }
+.map-clear:hover { color: var(--white); border-color: rgba(255,255,255,.2); }
 .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
-.location-info { display: flex; flex-direction: column; gap: 0; }
+.location-info { display: flex; flex-direction: column; }
 .loc-item { display: flex; gap: 20px; align-items: flex-start; padding: 28px 0; border-top: 1px solid var(--border); }
 .loc-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
 .loc-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; margin-bottom: 6px; }
@@ -199,6 +209,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   .hero-btns { flex-direction: column; align-items: flex-start; }
   .btn { width: 100%; justify-content: center; }
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </style>
 </head>
 <body>
@@ -242,9 +253,9 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <div style="background-image:url('img_1154.jpeg')"></div>
   </div>
   <div class="hero-content">
-    <div class="hero-tag">Automotive Photography, Liverpool</div>
+    <div class="hero-tag">Automotive Photography — Liverpool</div>
     <h1 class="hero-title">WE FIND<br>THE <em>Shot.</em></h1>
-    <p class="hero-sub">T&DSHOTS is a Liverpool-based automotive photography duo. We capture the cars people love and print on the spot, leaving photos on windscreens for owners to find.</p>
+    <p class="hero-sub">T&DSHOTS is a Liverpool-based automotive photography duo. We capture the cars people love — and print on the spot, leaving photos on windscreens for owners to find.</p>
     <div class="hero-btns">
       <a href="#gallery" class="btn btn-orange">View Gallery</a>
       <a href="#contact" class="btn btn-ghost">Work With Us</a>
@@ -257,7 +268,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <div class="about-text reveal">
       <div class="sec-label">About Us</div>
       <h2 class="sec-title">MORE THAN<br>JUST CARS.</h2>
-      <p class="about-desc">T&DSHOTS started with a simple idea: photograph the cars people love and give something back. We spot a car, shoot it, print it on the spot and leave it on the windscreen.</p>
+      <p class="about-desc">T&DSHOTS started with a simple idea — photograph the cars people love and give something back. We spot a car, shoot it, print it on the spot and leave it on the windscreen.</p>
       <p class="about-desc">Beyond street photography we cover automotive meets, events, music videos and any project that needs a creative eye. Based in Liverpool, shooting everywhere.</p>
       <div class="about-stats">
         <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Cars Shot</div></div>
@@ -276,10 +287,10 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
 <section class="gallery" id="gallery">
   <div class="sec-label reveal">The Work</div>
   <h2 class="sec-title reveal">THE GALLERY.</h2>
-  <p class="gallery-intro reveal">Every shot is real. No studio, no setup. Just finding cars in the wild and making them look the way they deserve.</p>
+  <p class="gallery-intro reveal">Every shot is real — no studio, no setup. Just finding cars in the wild and making them look the way they deserve.</p>
   <div class="gallery-grid">
-    <div class="gitem reveal" style="background-image:url('img_1142.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Porsche 993 Silver</span></div></div>
-    <div class="gitem reveal" style="background-image:url('img_1143.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Porsche 993 Speed Yellow</span></div></div>
+    <div class="gitem reveal" style="background-image:url('img_1142.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Porsche 993 — Silver</span></div></div>
+    <div class="gitem reveal" style="background-image:url('img_1143.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Porsche 993 — Speed Yellow</span></div></div>
     <div class="gitem reveal" style="background-image:url('img_1147.jpeg')"><div class="gitem-over"><span class="gitem-lbl">BMW M4 Competition</span></div></div>
     <div class="gitem reveal" style="background-image:url('img_1149.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Ford Mustang</span></div></div>
     <div class="gitem reveal" style="background-image:url('img_1150.jpeg')"><div class="gitem-over"><span class="gitem-lbl">Lamborghini Huracán</span></div></div>
@@ -294,7 +305,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <div class="yt-grid">
     <div class="yt-item reveal">
       <div class="yt-embed"><iframe src="https://www.youtube.com/embed/6E5y0JwYfHI" title="GeorgieLVP Music Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <div class="yt-meta"><div class="yt-tag">Music Video</div><div class="yt-title">GeorgieLVP: Spin Back</div><div class="yt-sub">Directed & Edited by Tom</div></div>
+      <div class="yt-meta"><div class="yt-tag">Music Video</div><div class="yt-title">GeorgieLVP — Spin Back</div><div class="yt-sub">Directed & Edited by Tom</div></div>
     </div>
     <div class="yt-item reveal">
       <div class="yt-embed"><iframe src="https://www.youtube.com/embed/v0ONbZGLTz8" title="Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
@@ -309,14 +320,14 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <div class="team-grid">
     <div class="team-card reveal">
       <div class="team-init">T</div>
-      <div class="team-role">Co-Founder, Camera & Edit</div>
+      <div class="team-role">Co-Founder — Camera & Edit</div>
       <div class="team-name">Tom</div>
-      <p class="team-desc">The everyday car guy with an eye for details most people walk past. Tom handles the camera, edits, music videos and anything else that needs a creative lens pointed at it.</p>
+      <p class="team-desc">The everyday car guy with an eye for details most people walk past. Tom handles the camera, edits, music videos — and anything else that needs a creative lens pointed at it.</p>
       <a href="TomsBTS.html" class="team-link">Behind The Lens →</a>
     </div>
     <div class="team-card reveal">
       <div class="team-init">D</div>
-      <div class="team-role">Co-Founder, Street & Print</div>
+      <div class="team-role">Co-Founder — Street & Print</div>
       <div class="team-name">Dno</div>
       <p class="team-desc">The one who spots the car before anyone else. Dno brings the instinct for the right moment and the drive to put a print on a windscreen and make someone's day.</p>
       <a href="https://www.instagram.com/emdnifrevenllouy?igsh=bXNiNDZzcm4ydnRs" target="_blank" class="team-link">Instagram →</a>
@@ -334,7 +345,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     </div>
     <div class="bts-card reveal">
       <div class="bts-tag">Featured Project</div>
-      <div class="bts-ttl">GeorgieLVP: Spin Back</div>
+      <div class="bts-ttl">GeorgieLVP — Spin Back</div>
       <div class="bts-sub">Directed & Edited by Tom</div>
       <div class="bts-thumb"><iframe src="https://www.youtube.com/embed/6E5y0JwYfHI" title="GeorgieLVP" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
       <a href="TomsBTS.html" class="bts-cta">View All Projects →</a>
@@ -345,21 +356,32 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
 <section class="location-section" id="location">
   <div class="sec-label reveal">You Pick, We Drive</div>
   <h2 class="sec-title reveal">WHERE WOULD YOU<br>LIKE US TO GO?</h2>
-  <p class="location-intro reveal">Spotted a meet, a car park full of bangers, or a location that deserves to be shot? Tell us where and we'll show up with a camera and a printer.</p>
-  <div class="location-grid">
-    <div class="location-form reveal">
-      <div class="form-group">
-        <div class="form-row">
-          <input type="text" placeholder="Your name" id="lname">
-          <input type="text" placeholder="Location / area" id="lloc">
-        </div>
-        <input type="text" placeholder="Date or event name (optional)" id="ldate">
-        <textarea placeholder="Tell us more, what's there, why it's worth shooting..." id="lmsg"></textarea>
-        <button class="form-submit" id="lsub">Submit Location →</button>
-        <div id="lstatus" style="font-size:12px;color:var(--orange);display:none;">✓ Got it. We'll look into it.</div>
-      </div>
+  <p class="location-intro reveal">Spotted a meet, a car park full of bangers, or a location that deserves to be shot? Drop a pin on the map and tell us about it — we'll show up with a camera and a printer.</p>
+
+  <div class="map-wrap reveal">
+    <div class="map-instruction">
+      <span class="map-pin-icon">📍</span> Click anywhere on the map to drop a pin
     </div>
-    <div class="location-info reveal">
+    <div id="map"></div>
+    <div class="map-selected" id="mapSelected">
+      <span id="mapCoords">No location selected yet</span>
+      <button class="map-clear" id="mapClear">✕ Clear pin</button>
+    </div>
+  </div>
+
+  <div class="location-grid reveal">
+    <div class="form-group">
+      <div class="form-row">
+        <input type="text" placeholder="Your name" id="lname">
+        <input type="text" placeholder="Location name or area" id="lloc">
+      </div>
+      <input type="text" placeholder="Date or event (optional)" id="ldate">
+      <textarea placeholder="Tell us more — what's there, why it's worth shooting..." id="lmsg"></textarea>
+      <div id="lcoords" style="display:none;"></div>
+      <button class="form-submit" id="lsub">Submit Location →</button>
+      <div id="lstatus" style="font-size:12px;color:var(--orange);display:none;">✓ Got it — we'll look into it.</div>
+    </div>
+    <div class="location-info">
       <div class="loc-item">
         <div class="loc-icon">📍</div>
         <div>
@@ -371,7 +393,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
         <div class="loc-icon">🏁</div>
         <div>
           <div class="loc-title">Meets & Events</div>
-          <p class="loc-desc">Got a car meet coming up? Let us know and we'll cover it properly. No phone cameras, actual shots.</p>
+          <p class="loc-desc">Got a car meet coming up? Let us know and we'll cover it properly — no phone cameras, actual shots.</p>
         </div>
       </div>
       <div class="loc-item">
@@ -412,7 +434,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
         </select>
         <textarea placeholder="Tell us about the project..." id="fmsg"></textarea>
         <button class="form-submit" id="fsub">Send Message →</button>
-        <div id="fstatus" style="font-size:12px;color:var(--orange);display:none;">✓ Sent. We'll be in touch.</div>
+        <div id="fstatus" style="font-size:12px;color:var(--orange);display:none;">✓ Sent — we'll be in touch.</div>
       </div>
     </div>
   </div>
@@ -431,6 +453,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <div class="footer-copy">© 2026 T&DSHOTS</div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 // ─── CURSOR ───────────────────────────────
 var DOT  = document.getElementById('cur');
@@ -506,6 +529,68 @@ document.getElementById('emailLink').addEventListener('click', function(e) {
   window.location = 'mailto:' + atob('ZG50c2hvb3RzQGdtYWlsLmNvbQ==');
 });
 
+// ─── MAP ──────────────────────────────────
+var map, marker, selectedLat = null, selectedLng = null;
+
+function initMap() {
+  if (typeof L === 'undefined' || map) return;
+
+  map = L.map('map', { zoomControl: true }).setView([53.4084, -2.9916], 11);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    subdomains: 'abcd', maxZoom: 19
+  }).addTo(map);
+
+  var pinIcon = L.divIcon({
+    className: '',
+    html: '<div style="width:14px;height:14px;background:#e8820c;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 4px rgba(232,130,12,0.3);"></div>',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7]
+  });
+
+  map.on('click', function(e) {
+    selectedLat = e.latlng.lat.toFixed(5);
+    selectedLng = e.latlng.lng.toFixed(5);
+    if (marker) { map.removeLayer(marker); }
+    marker = L.marker(e.latlng, { icon: pinIcon }).addTo(map);
+    document.getElementById('mapCoords').textContent = 'Loading address...';
+    fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat=' + selectedLat + '&lon=' + selectedLng)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var addr = data.display_name || (selectedLat + ', ' + selectedLng);
+        document.getElementById('mapCoords').textContent = '📍 ' + addr;
+        if (!document.getElementById('lloc').value) {
+          var parts = data.address || {};
+          var short = parts.suburb || parts.village || parts.town || parts.city || parts.county || '';
+          if (short) document.getElementById('lloc').value = short;
+        }
+      })
+      .catch(function() {
+        document.getElementById('mapCoords').textContent = '📍 ' + selectedLat + ', ' + selectedLng;
+      });
+    document.getElementById('lcoords').value = selectedLat + ',' + selectedLng;
+    document.getElementById('mapClear').classList.add('visible');
+  });
+
+  document.getElementById('mapClear').addEventListener('click', function() {
+    if (marker) { map.removeLayer(marker); marker = null; }
+    selectedLat = null; selectedLng = null;
+    document.getElementById('mapCoords').textContent = 'No location selected yet';
+    document.getElementById('lcoords').value = '';
+    this.classList.remove('visible');
+  });
+
+  // Fix render when section scrolls into view
+  var mapObs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) { setTimeout(function() { map.invalidateSize(); }, 100); mapObs.disconnect(); }
+  }, { threshold: 0.1 });
+  mapObs.observe(document.getElementById('location'));
+}
+
+// Init immediately (Leaflet is loaded sync above), fallback on DOMContentLoaded
+if (typeof L !== 'undefined') { initMap(); } else { document.addEventListener('DOMContentLoaded', initMap); }
+
 // ─── LOCATION FORM ────────────────────────
 document.getElementById('lsub').addEventListener('click', function() {
   var name = document.getElementById('lname').value.trim();
@@ -513,6 +598,10 @@ document.getElementById('lsub').addEventListener('click', function() {
   if (!name || !loc) { alert('Please enter your name and a location.'); return; }
   document.getElementById('lstatus').style.display = 'block';
   ['lname','lloc','ldate','lmsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+  if (marker) { map.removeLayer(marker); marker = null; }
+  document.getElementById('mapCoords').textContent = 'No location selected yet';
+  document.getElementById('mapClear').classList.remove('visible');
+  selectedLat = null; selectedLng = null;
 });
 
 // ─── FORM ─────────────────────────────────
