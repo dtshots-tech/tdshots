@@ -5,883 +5,240 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Behind The Lens — Tom | T&DSHOTS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --black: #080808;
-    --offblack: #111111;
-    --charcoal: #1a1a1a;
-    --red: #c0392b;
-    --red-bright: #e74c3c;
-    --white: #f5f0eb;
-    --grey: #888888;
-    --lightgrey: #cccccc;
-    --orange: #e8820c;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  html, body { cursor: none !important; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    position: fixed;
-    width: 12px;
-    height: 12px;
-    background: var(--orange);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 2147483647;
-    top: 0;
-    left: 0;
-    transform: translate(-200px,-200px);
-    will-change: transform;
-    transition: width 0.15s, height 0.15s;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(232,130,12,0.6);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 2147483646;
-    top: 0;
-    left: 0;
-    transform: translate(-200px,-200px);
-    will-change: transform;
-    transition: width 0.15s, height 0.15s;
-  }
-  @media (hover: none) and (pointer: coarse) {
-    .cursor, .cursor-ring { display: none !important; }
-    html, body { cursor: auto !important; }
-  }
-
-  /* Nav */
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    padding: 20px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to bottom, rgba(8,8,8,0.97), transparent);
-  }
-
-  .nav-logo img { height: 40px; width: auto; display: block; }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-    align-items: center;
-  }
-  .nav-links a {
-    color: var(--grey);
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--white); }
-  .nav-back {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--grey) !important;
-    transition: color 0.3s !important;
-  }
-  .nav-back:hover { color: var(--white) !important; }
-  .nav-cta {
-    background: var(--orange) !important;
-    color: var(--white) !important;
-    padding: 10px 24px;
-    font-size: 10px !important;
-    transition: opacity 0.3s !important;
-  }
-  .nav-cta:hover { opacity: 0.85; }
-
-  /* Hamburger */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px;
-    background: none;
-    border: none;
-  }
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--white);
-    transition: all 0.3s ease;
-    transform-origin: center;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(8,8,8,0.98);
-    z-index: 150;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .mobile-menu.open { opacity: 1; pointer-events: all; }
-  .mobile-menu a {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 44px;
-    letter-spacing: 6px;
-    color: var(--grey);
-    text-decoration: none;
-    padding: 14px 0;
-    transition: color 0.2s;
-    display: block;
-    text-align: center;
-  }
-  .mobile-menu a:hover { color: var(--white); }
-  .mobile-menu .mob-cta {
-    margin-top: 20px;
-    background: var(--orange);
-    color: var(--white) !important;
-    font-size: 18px !important;
-    padding: 14px 40px;
-  }
-
-  /* Hero */
-  .hero {
-    height: 100vh;
-    min-height: 600px;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 80px 60px;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to right, rgba(8,8,8,0.95) 35%, rgba(8,8,8,0.4) 100%),
-      linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 60%);
-    z-index: 1;
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(232,130,12,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232,130,12,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: 0;
-  }
-
-  /* YouTube embed as hero background */
-  .hero-video-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-  }
-  .hero-video-bg iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    opacity: 0.25;
-  }
-
-  .hero-deco {
-    position: absolute;
-    right: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(100px, 16vw, 240px);
-    color: rgba(255,255,255,0.02);
-    letter-spacing: -8px;
-    line-height: 1;
-    z-index: 0;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 680px;
-  }
-
-  .hero-label {
-    font-size: 10px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .hero-label::before {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--orange);
-  }
-
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(56px, 8vw, 120px);
-    line-height: 0.92;
-    letter-spacing: 4px;
-    margin-bottom: 28px;
-  }
-
-  .hero-title .accent {
-    color: var(--orange);
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-  }
-
-  .hero-sub {
-    font-size: 15px;
-    line-height: 1.8;
-    color: var(--lightgrey);
-    max-width: 480px;
-    margin-bottom: 40px;
-    font-weight: 300;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--orange);
-    color: var(--white);
-    padding: 16px 36px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    transition: opacity 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .btn-primary:hover { opacity: 0.85; }
-
-  .btn-ghost {
-    color: var(--lightgrey);
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--white); }
-
-  /* Section base */
-  section { padding: 100px 60px; }
-
-  .section-label {
-    font-size: 9px;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 1px;
-    background: var(--orange);
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(44px, 6vw, 88px);
-    letter-spacing: 3px;
-    line-height: 0.95;
-    margin-bottom: 48px;
-  }
-
-  /* Music Video Section */
-  .mv-section {
-    background: var(--offblack);
-    padding: 100px 60px;
-  }
-
-  .mv-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 72px;
-    align-items: center;
-  }
-
-  .mv-text .section-title { margin-bottom: 24px; }
-
-  .mv-desc {
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--lightgrey);
-    margin-bottom: 20px;
-    font-weight: 300;
-  }
-
-  .mv-quote {
-    background: var(--charcoal);
-    border-left: 3px solid var(--orange);
-    padding: 20px 24px;
-    margin: 28px 0 36px;
-  }
-  .mv-quote p {
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: 17px;
-    line-height: 1.6;
-    color: var(--white);
-  }
-
-  .mv-tags {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
-  }
-  .mv-tag {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--orange);
-    border: 1px solid rgba(232,130,12,0.3);
-    padding: 6px 14px;
-  }
-
-  /* YouTube embed */
-  .yt-embed-wrap {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    background: var(--charcoal);
-    overflow: hidden;
-  }
-
-  .yt-embed-wrap iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  .yt-embed-label {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: rgba(8,8,8,0.8);
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--orange);
-    padding: 6px 12px;
-    z-index: 2;
-  }
-
-  /* Creators Section */
-  .creators {
-    background: var(--black);
-    padding: 100px 60px;
-  }
-
-  .creators-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: rgba(255,255,255,0.04);
-    margin-top: 16px;
-  }
-
-  .creator-card {
-    background: var(--offblack);
-    padding: 52px 44px;
-    transition: background 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .creator-card:hover { background: #161616; }
-
-  .creator-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--orange);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-  }
-  .creator-card:hover::before { transform: scaleX(1); }
-
-  .creator-initial {
-    width: 64px;
-    height: 64px;
-    background: var(--orange);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 2px;
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-  }
-
-  .creator-role {
-    font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 8px;
-  }
-
-  .creator-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 40px;
-    letter-spacing: 3px;
-    color: var(--white);
-    margin-bottom: 16px;
-    line-height: 1;
-  }
-
-  .creator-desc {
-    font-size: 13px;
-    line-height: 1.85;
-    color: var(--grey);
-    font-weight: 300;
-    margin-bottom: 28px;
-  }
-
-  .creator-links {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .creator-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 10px 18px;
-    transition: all 0.3s;
-  }
-
-  .creator-link-ig {
-    background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
-    color: var(--white);
-  }
-  .creator-link-ig:hover { opacity: 0.85; }
-
-  /* Behind The Scenes */
-  .bts {
-    background: var(--charcoal);
-    padding: 100px 60px;
-  }
-
-  .bts-intro {
-    max-width: 640px;
-    margin-bottom: 64px;
-  }
-
-  .bts-intro-text {
-    font-size: 16px;
-    line-height: 1.9;
-    color: var(--lightgrey);
-    font-weight: 300;
-  }
-
-  .bts-steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: rgba(255,255,255,0.05);
-  }
-
-  .bts-step {
-    background: var(--charcoal);
-    padding: 44px 36px;
-    transition: background 0.3s;
-  }
-  .bts-step:hover { background: #222; }
-
-  .bts-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: rgba(232,130,12,0.15);
-    line-height: 1;
-    margin-bottom: 20px;
-    transition: color 0.3s;
-  }
-  .bts-step:hover .bts-num { color: rgba(232,130,12,0.35); }
-
-  .bts-icon { font-size: 26px; margin-bottom: 16px; }
-
-  .bts-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  .bts-desc {
-    font-size: 13px;
-    line-height: 1.8;
-    color: var(--grey);
-    font-weight: 300;
-  }
-
-  /* Tom section */
-  .tom-section {
-    background: var(--offblack);
-    padding: 100px 60px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .tom-visual {
-    position: relative;
-  }
-
-  .tom-card {
-    background: var(--charcoal);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 52px 44px;
-    position: relative;
-  }
-
-  .tom-card::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    right: -12px;
-    width: 100%;
-    height: 100%;
-    border: 1px solid rgba(232,130,12,0.2);
-    z-index: -1;
-  }
-
-  .tom-initial {
-    width: 80px;
-    height: 80px;
-    background: var(--orange);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 44px;
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 28px;
-  }
-
-  .tom-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 52px;
-    letter-spacing: 4px;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .tom-role {
-    font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 24px;
-  }
-
-  .tom-bio {
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--grey);
-    font-weight: 300;
-  }
-
-  .tom-text .section-title { margin-bottom: 20px; }
-
-  .tom-desc {
-    font-size: 15px;
-    line-height: 1.9;
-    color: var(--lightgrey);
-    font-weight: 300;
-    margin-bottom: 20px;
-  }
-
-  /* CTA strip */
-  .cta-strip {
-    background: var(--orange);
-    padding: 72px 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-
-  .cta-strip-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(32px, 4vw, 56px);
-    letter-spacing: 3px;
-    color: var(--white);
-    line-height: 1;
-  }
-
-  .cta-strip-sub {
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    margin-top: 8px;
-    font-weight: 300;
-    letter-spacing: 1px;
-  }
-
-  .btn-white {
-    background: var(--white);
-    color: var(--orange);
-    padding: 16px 36px;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 700;
-    white-space: nowrap;
-    transition: opacity 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  .btn-white:hover { opacity: 0.9; }
-
-  /* Footer */
-  footer {
-    background: var(--charcoal);
-    padding: 40px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-    flex-wrap: wrap;
-  }
-  .footer-links a {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--grey);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .footer-links a:hover { color: var(--white); }
-
-  .footer-copy {
-    font-size: 10px;
-    color: var(--grey);
-    letter-spacing: 2px;
-  }
-
-  /* Video Gallery */
-  .video-gallery { background: var(--black); padding: 100px 60px; }
-  .vg-intro { font-size: 15px; line-height: 1.8; color: var(--grey); font-weight: 300; max-width: 640px; margin-bottom: 56px; }
-  .vg-intro strong { color: var(--orange); font-weight: 500; }
-  .vg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .vg-item { display: flex; flex-direction: column; background: var(--charcoal); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; transition: border-color 0.3s; }
-  .vg-item:hover { border-color: rgba(232,130,12,0.3); }
-  .vg-embed { position: relative; width: 100%; padding-bottom: 56.25%; background: #111; overflow: hidden; }
-  .vg-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .vg-empty { display: flex; align-items: center; justify-content: center; }
-  .vg-empty-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; text-align: center; background: linear-gradient(135deg, #141414, #1a1a1a); }
-  .vg-empty-icon { font-size: 28px; color: rgba(232,130,12,0.25); width: 56px; height: 56px; border: 2px dashed rgba(232,130,12,0.2); display: flex; align-items: center; justify-content: center; }
-  .vg-empty-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; color: rgba(255,255,255,0.2); }
-  .vg-empty-hint { font-size: 11px; color: rgba(255,255,255,0.15); line-height: 1.6; max-width: 260px; }
-  .vg-empty-hint code { display: block; margin-top: 6px; font-size: 10px; color: rgba(232,130,12,0.3); font-family: monospace; word-break: break-all; }
-  .vg-meta { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 6px; }
-  .vg-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); }
-  .vg-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--white); }
-  .vg-embed-short { padding-bottom: 177.78%; /* 9:16 portrait for Shorts */ }
-  .vg-sub { font-size: 12px; color: var(--grey); font-weight: 300; }
-
-  /* Noise */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .hero-label { animation: fadeUp 0.8s ease 0.2s both; }
-  .hero-title { animation: fadeUp 0.8s ease 0.4s both; }
-  .hero-sub { animation: fadeUp 0.8s ease 0.6s both; }
-  .hero-actions { animation: fadeUp 0.8s ease 0.8s both; }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; background: rgba(8,8,8,0.97); }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .mobile-menu { display: flex; }
-
-    .hero { padding: 100px 20px 40px; align-items: flex-start; justify-content: flex-end; flex-direction: column; }
-    .hero-title { font-size: clamp(48px, 13vw, 72px); }
-    .hero-sub { font-size: 14px; }
-    .hero-actions { flex-direction: column; align-items: flex-start; width: 100%; }
-    .btn-primary { width: 100%; justify-content: center; }
-
-    .video-gallery { padding: 64px 20px; }
-    .vg-grid { grid-template-columns: 1fr; gap: 24px; }
-    section { padding: 64px 20px; }
-    .mv-section, .creators, .bts, .tom-section { padding: 64px 20px; }
-    .mv-grid { grid-template-columns: 1fr; gap: 40px; }
-    .creators-grid { grid-template-columns: 1fr; }
-    .bts-steps { grid-template-columns: 1fr; }
-    .tom-section { grid-template-columns: 1fr; gap: 40px; }
-    .cta-strip { padding: 48px 20px; flex-direction: column; text-align: center; }
-    .btn-white { width: 100%; justify-content: center; }
-    footer { flex-direction: column; text-align: center; padding: 32px 20px; }
-    .footer-links { justify-content: center; }
-  }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --black: #080808; --off: #101010; --card: #161616;
+  --border: rgba(255,255,255,0.07);
+  --orange: #e8820c; --white: #f0ebe4; --grey: #666; --light: #aaa;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+/* ── CURSOR ── */
+#cur { position: fixed; width: 10px; height: 10px; background: var(--orange); border-radius: 50%; pointer-events: none; z-index: 2147483647; top: 0; left: 0; transform: translate(-300px,-300px); will-change: transform; }
+#cur-ring { position: fixed; width: 36px; height: 36px; border: 1.5px solid var(--orange); border-radius: 50%; pointer-events: none; z-index: 2147483646; top: 0; left: 0; transform: translate(-300px,-300px); will-change: transform; opacity: 0.7; transition: width .2s, height .2s, opacity .2s, border-color .2s; }
+
+/* ── NOISE ── */
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9998; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ── NAV ── */
+nav { position: fixed; top: 0; width: 100%; z-index: 500; padding: 22px 60px; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(8,8,8,0.96), transparent); }
+nav.scrolled { background: rgba(8,8,8,0.97); }
+.nav-logo img { height: 38px; width: auto; display: block; }
+.nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+.nav-links a { color: var(--grey); text-decoration: none; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; transition: color .3s; }
+.nav-links a:hover { color: var(--white); }
+.nav-back { display: flex; align-items: center; gap: 8px; }
+.nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 9px 22px; font-size: 9px !important; }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: none; padding: 6px; }
+.burger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: .3s; }
+.burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mob-menu { display: none; position: fixed; inset: 0; background: rgba(8,8,8,.98); z-index: 400; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.mob-menu.open { opacity: 1; pointer-events: all; }
+.mob-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 6px; color: var(--grey); text-decoration: none; padding: 10px 0; transition: color .2s; }
+.mob-menu a:hover { color: var(--white); }
+.mob-cta { background: var(--orange) !important; color: var(--white) !important; font-size: 20px !important; padding: 12px 40px !important; margin-top: 16px; }
+
+/* ── HERO ── */
+.hero { height: 100vh; min-height: 620px; display: flex; align-items: flex-end; padding: 0 60px 80px; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; background: linear-gradient(to right, rgba(8,8,8,.97) 45%, rgba(8,8,8,.3) 100%), linear-gradient(to top, rgba(8,8,8,.92) 0%, transparent 55%); }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,130,12,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(232,130,12,.04) 1px, transparent 1px); background-size: 64px 64px; }
+.hero-deco { position: absolute; right: -20px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: clamp(100px,16vw,240px); color: rgba(255,255,255,.018); letter-spacing: -8px; pointer-events: none; user-select: none; line-height: 1; }
+.hero-img { position: absolute; right: 0; top: 0; bottom: 0; width: 50%; background: url('img_1149.jpeg') center/cover no-repeat; opacity: 0; transition: opacity 1.2s; }
+.hero-img.loaded { opacity: 1; }
+.hero-content { position: relative; z-index: 2; max-width: 600px; }
+.hero-tag { font-size: 9px; letter-spacing: 6px; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; animation: fadeUp .8s .1s both; }
+.hero-tag::before { content: ''; width: 32px; height: 1px; background: var(--orange); }
+.hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px,8.5vw,120px); line-height: .9; letter-spacing: 3px; margin-bottom: 28px; animation: fadeUp .8s .25s both; }
+.hero-title em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+.hero-sub { font-size: 15px; line-height: 1.85; color: var(--light); max-width: 460px; margin-bottom: 44px; animation: fadeUp .8s .4s both; }
+.hero-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; animation: fadeUp .8s .55s both; }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 15px 34px; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: opacity .3s; }
+.btn-orange { background: var(--orange); color: var(--white); }
+.btn-orange:hover { opacity: .82; }
+.btn-ghost { color: var(--light); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,.2); }
+
+/* ── SECTIONS ── */
+section { padding: 100px 60px; }
+.sec-label { font-size: 9px; letter-spacing: 6px; text-transform: uppercase; color: var(--orange); margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.sec-label::before { content: ''; width: 24px; height: 1px; background: var(--orange); }
+.sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(44px,6vw,88px); letter-spacing: 3px; line-height: .92; margin-bottom: 48px; }
+
+/* ── MUSIC VIDEO ── */
+.mv { background: var(--off); }
+.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.mv-text .sec-title { margin-bottom: 24px; }
+.mv-desc { font-size: 15px; line-height: 1.9; color: var(--light); margin-bottom: 18px; }
+.mv-quote { background: var(--card); border-left: 3px solid var(--orange); padding: 20px 24px; margin: 28px 0 32px; font-family: 'DM Serif Display', serif; font-style: italic; font-size: 17px; line-height: 1.6; }
+.mv-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.mv-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(232,130,12,.3); padding: 6px 14px; }
+.yt-wrap { position: relative; padding-bottom: 56.25%; background: var(--card); overflow: hidden; }
+.yt-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.yt-badge { position: absolute; top: 14px; left: 14px; background: rgba(8,8,8,.85); font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); padding: 6px 12px; z-index: 2; pointer-events: none; }
+
+/* ── CREATORS ── */
+.creators { background: var(--black); }
+.creators-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 8px; }
+.creator-card { background: var(--card); padding: 48px 42px; position: relative; overflow: hidden; transition: background .3s; }
+.creator-card:hover { background: #1a1a1a; }
+.creator-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.creator-card:hover::before { transform: scaleX(1); }
+.creator-init { width: 58px; height: 58px; background: var(--orange); font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--white); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+.creator-role { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 6px; }
+.creator-name { font-family: 'Bebas Neue', sans-serif; font-size: 36px; letter-spacing: 3px; margin-bottom: 14px; line-height: 1; }
+.creator-desc { font-size: 13px; line-height: 1.85; color: var(--grey); }
+.creator-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color .3s; }
+.creator-link:hover { color: var(--orange); }
+
+/* ── BTS STEPS ── */
+.bts { background: var(--off); }
+.bts-intro { font-size: 15px; line-height: 1.9; color: var(--light); max-width: 600px; margin-bottom: 56px; }
+.bts-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
+.bts-step { background: var(--card); padding: 40px 32px; position: relative; overflow: hidden; transition: background .3s; }
+.bts-step:hover { background: #1a1a1a; }
+.bts-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.bts-step:hover::before { transform: scaleX(1); }
+.bts-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; color: rgba(232,130,12,.15); letter-spacing: 2px; line-height: 1; margin-bottom: 12px; }
+.bts-icon { font-size: 28px; margin-bottom: 14px; }
+.bts-step-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; margin-bottom: 12px; }
+.bts-step-desc { font-size: 13px; line-height: 1.85; color: var(--grey); }
+
+/* ── MEET TOM ── */
+.tom { background: var(--black); }
+.tom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.tom-card { background: var(--card); padding: 52px 44px; border-top: 2px solid var(--orange); }
+.tom-init { width: 72px; height: 72px; background: var(--orange); font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--white); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+.tom-name { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 4px; line-height: 1; margin-bottom: 6px; }
+.tom-role { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
+.tom-bio { font-size: 14px; line-height: 1.9; color: var(--grey); }
+.tom-text .sec-title { margin-bottom: 24px; }
+.tom-desc { font-size: 15px; line-height: 1.9; color: var(--light); margin-bottom: 18px; }
+
+/* ── VIDEO GALLERY ── */
+.vg { background: var(--off); }
+.vg-intro { font-size: 15px; color: var(--light); max-width: 580px; margin-bottom: 52px; line-height: 1.8; }
+.vg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.vg-item { background: var(--card); border: 1px solid var(--border); overflow: hidden; transition: border-color .3s; }
+.vg-item:hover { border-color: rgba(232,130,12,.35); }
+.vg-embed { position: relative; padding-bottom: 56.25%; }
+.vg-embed.short { padding-bottom: 177.78%; }
+.vg-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.vg-empty { background: linear-gradient(135deg,#141414,#1a1a1a); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+.vg-empty-icon { font-size: 24px; color: rgba(232,130,12,.2); width: 52px; height: 52px; border: 2px dashed rgba(232,130,12,.18); display: flex; align-items: center; justify-content: center; }
+.vg-empty-text { font-size: 11px; color: rgba(255,255,255,.15); letter-spacing: 2px; text-transform: uppercase; }
+.vg-meta { padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 5px; }
+.vg-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); }
+.vg-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; }
+.vg-sub { font-size: 12px; color: var(--grey); }
+
+/* ── CTA STRIP ── */
+.cta-strip { background: var(--orange); padding: 56px 60px; display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+.cta-strip-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(32px,4vw,56px); letter-spacing: 4px; color: var(--white); line-height: 1; }
+.cta-strip-sub { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 8px; }
+.btn-white { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; background: var(--white); color: var(--black); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; font-family: 'DM Sans', sans-serif; font-weight: 700; white-space: nowrap; transition: opacity .3s; flex-shrink: 0; }
+.btn-white:hover { opacity: .9; }
+
+/* ── FOOTER ── */
+footer { background: var(--card); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 16px; }
+.footer-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color .3s; }
+.footer-links a:hover { color: var(--white); }
+.footer-copy { font-size: 10px; color: var(--grey); letter-spacing: 2px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s, transform .7s; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 16px 22px; background: rgba(8,8,8,.97) !important; }
+  .nav-links { display: none; }
+  .burger { display: flex; }
+  .mob-menu { display: flex; }
+  section { padding: 64px 22px; }
+  .hero { padding: 0 22px 56px; }
+  .hero-img { display: none; }
+  .hero-bg { background: linear-gradient(to top, rgba(8,8,8,.95), rgba(8,8,8,.7)); }
+  .mv-grid, .tom-grid { grid-template-columns: 1fr; gap: 40px; }
+  .creators-grid, .vg-grid { grid-template-columns: 1fr; }
+  .bts-steps { grid-template-columns: 1fr; }
+  .cta-strip { padding: 48px 22px; flex-direction: column; text-align: center; }
+  .btn-white { width: 100%; justify-content: center; }
+  footer { flex-direction: column; text-align: center; padding: 28px 22px; }
+  .footer-links { justify-content: center; }
+  .hero-btns { flex-direction: column; align-items: flex-start; }
+  .btn { width: 100%; justify-content: center; }
+}
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
-<!-- Nav -->
-<nav>
-  <a href="index.html" class="nav-logo"><img src="logo.png" alt="T&D SHOTS"></a>
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="T&D SHOTS" onerror="this.outerHTML='<span style=\'font-family:Bebas Neue,sans-serif;font-size:22px;letter-spacing:4px\'>T&amp;<span style=\'color:#e8820c\'>D</span>SHOTS</span>'">
+  </a>
   <ul class="nav-links">
-    <li><a href="index.html" class="nav-back">← Back to T&DSHOTS</a></li>
+    <li><a href="index.html" class="nav-back">← T&DSHOTS</a></li>
     <li><a href="#mv">The Video</a></li>
-    <li><a href="#videos">Videos</a></li>
     <li><a href="#creators">Creators</a></li>
-    <li><a href="#tom">About Tom</a></li>
+    <li><a href="#tom">Meet Tom</a></li>
+    <li><a href="#vg">All Videos</a></li>
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <img src="logo.png" alt="T&D SHOTS" style="height:52px;width:auto;margin-bottom:32px;">
-  <a href="index.html" class="mobile-link">← T&DSHOTS Home</a>
-  <a href="#mv" class="mobile-link">The Video</a>
-  <a href="#videos" class="mobile-link">Videos</a>
-  <a href="#creators" class="mobile-link">Creators</a>
-  <a href="#tom" class="mobile-link">About Tom</a>
-  <a href="index.html#contact" class="mobile-link mob-cta">Contact</a>
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="index.html" class="mob-link">← T&DSHOTS</a>
+  <a href="#mv" class="mob-link">The Video</a>
+  <a href="#creators" class="mob-link">Creators</a>
+  <a href="#tom" class="mob-link">Meet Tom</a>
+  <a href="#vg" class="mob-link">All Videos</a>
+  <a href="index.html#contact" class="mob-cta">Contact</a>
 </div>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-grid"></div>
   <div class="hero-bg"></div>
   <div class="hero-deco">TOM</div>
-
+  <div class="hero-img" id="heroImg"></div>
   <div class="hero-content">
-    <div class="hero-label">Behind The Lens — T&DSHOTS</div>
-    <h1 class="hero-title">
-      MORE THAN<br>
-      <span class="accent">Just Cars.</span>
-    </h1>
-    <p class="hero-sub">T&DSHOTS is about capturing the world around us — and that goes beyond automotive photography. Meet Tom, the co-founder behind the camera on a music video for rising creator GeorgieLVP, and someone who's always willing to lend his skills to help others create.</p>
-    <div class="hero-actions">
-      <a href="#mv" class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M8 5v14l11-7z"/></svg>
+    <div class="hero-tag">Behind The Lens — T&DSHOTS</div>
+    <h1 class="hero-title">MORE THAN<br><em>Just Cars.</em></h1>
+    <p class="hero-sub">T&DSHOTS goes beyond automotive photography. This is Tom's page — music videos, short films, and every project he's put his lens on.</p>
+    <div class="hero-btns">
+      <a href="#mv" class="btn btn-orange">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8 5v14l11-7z"/></svg>
         Watch The Video
       </a>
-      <a href="index.html" class="btn-ghost">← Back to T&DSHOTS</a>
+      <a href="index.html" class="btn btn-ghost">← Back to T&DSHOTS</a>
     </div>
   </div>
 </section>
 
-<!-- Music Video -->
-<section class="mv-section" id="mv">
+<!-- MUSIC VIDEO -->
+<section class="mv" id="mv">
   <div class="mv-grid">
-    <div class="mv-text">
-      <div class="section-label">The Project</div>
-      <h2 class="section-title">MUSIC<br>VIDEO.</h2>
+    <div class="mv-text reveal">
+      <div class="sec-label">The Project</div>
+      <h2 class="sec-title">MUSIC<br>VIDEO.</h2>
       <p class="mv-desc">Tom stepped behind the camera for something a little different — a full music video for Liverpool content creator <strong>GeorgieLVP</strong>, shot and edited entirely by Tom from start to finish.</p>
       <p class="mv-desc">Shot on the streets, this is the same eye for detail and passion for capturing real moments that drives everything T&DSHOTS does — just set to music.</p>
-
-      <div class="mv-quote">
-        <p>"Same streets. Same passion. Different kind of shot."</p>
-      </div>
-
+      <div class="mv-quote">"Same streets. Same passion. Different kind of shot."</div>
       <div class="mv-tags">
         <span class="mv-tag">Music Video</span>
         <span class="mv-tag">Street Photography</span>
@@ -889,128 +246,102 @@
         <span class="mv-tag">Videography</span>
         <span class="mv-tag">Behind The Scenes</span>
       </div>
-
-      <a href="https://youtu.be/6E5y0JwYfHI?si=MyHw3cmhTKqmzh0u" target="_blank" rel="noopener" class="btn-primary">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <a href="https://youtu.be/6E5y0JwYfHI" target="_blank" class="btn btn-orange">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         Watch on YouTube
       </a>
     </div>
-
-    <div class="mv-video">
-      <div class="yt-embed-wrap">
-        <div class="yt-embed-label">T&DSHOTS — Behind The Lens</div>
-        <iframe
-          src="https://www.youtube.com/embed/6E5y0JwYfHI"
-          title="GeorgieLVP x Arz1Official — Music Video by Tom"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+    <div class="reveal">
+      <div class="yt-wrap">
+        <div class="yt-badge">T&DSHOTS — Behind The Lens</div>
+        <iframe src="https://www.youtube.com/embed/6E5y0JwYfHI" title="GeorgieLVP — Spin Back" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Creators -->
+<!-- CREATORS -->
 <section class="creators" id="creators">
-  <div class="section-label">Featured</div>
-  <h2 class="section-title">PEOPLE<br>TOM HAS HELPED.</h2>
-
+  <div class="sec-label reveal">Featured</div>
+  <h2 class="sec-title reveal">PEOPLE TOM<br>HAS HELPED.</h2>
   <div class="creators-grid">
-    <div class="creator-card">
-      <div class="creator-initial">G</div>
+    <div class="creator-card reveal">
+      <div class="creator-init">G</div>
       <div class="creator-role">Music Video — Camera & Edit</div>
       <div class="creator-name">GeorgieLVP</div>
-      <p class="creator-desc">A Liverpool-based content creator with real personality and energy. GeorgieLVP commissioned Tom to shoot and edit a full music video — handled entirely by Tom from location to final cut. Go check her out.</p>
-      <div class="creator-links">
-        <a href="https://www.instagram.com/georgie.lvp?igsh=MTJweTJ0bjV6cml2bw==" target="_blank" rel="noopener" class="creator-link creator-link-ig">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          @georgie.lvp
-        </a>
-      </div>
+      <p class="creator-desc">A Liverpool-based content creator with real personality and energy. GeorgieLVP commissioned Tom to shoot and edit a full music video — handled entirely by Tom from location scouting to final cut.</p>
+      <a href="https://www.instagram.com/georgie.lvp?igsh=MTJweTJ0bjV6cml2bw==" target="_blank" class="creator-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @georgie.lvp
+      </a>
     </div>
-
-    <div class="creator-card">
-      <div class="creator-initial">A</div>
+    <div class="creator-card reveal">
+      <div class="creator-init">A</div>
       <div class="creator-role">Creator Tom Has Helped</div>
       <div class="creator-name">Arz1Official</div>
-      <p class="creator-desc">Another creator Tom has lent a hand to — separately from the GeorgieLVP project. Tom's always willing to use his skills to help people create something worth watching. Follow Arz1Official on Instagram to see what he's up to.</p>
-      <div class="creator-links">
-        <a href="https://www.instagram.com/arz1official?igsh=YmFtZ2MwaDRlOHV0" target="_blank" rel="noopener" class="creator-link creator-link-ig">
-          <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-          @arz1official
-        </a>
-      </div>
+      <p class="creator-desc">Another creator Tom has lent a hand to. Tom's always willing to use his skills to help people create something worth watching. Follow Arz1Official on Instagram to see what he's up to.</p>
+      <a href="https://www.instagram.com/arz1official?igsh=YmFtZ2MwaDRlOHV0" target="_blank" class="creator-link">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @arz1official
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Behind The Scenes -->
+<!-- BTS STEPS -->
 <section class="bts" id="bts">
-  <div class="section-label">Process</div>
-  <h2 class="section-title">BEHIND<br>THE SCENES.</h2>
-
-  <div class="bts-intro">
-    <p class="bts-intro-text">Music video production isn't far from what T&DSHOTS does every day — it's about reading a location, finding the light, and capturing a moment that feels real. Here's how Tom approached it.</p>
-  </div>
-
+  <div class="sec-label reveal">Process</div>
+  <h2 class="sec-title reveal">BEHIND<br>THE SCENES.</h2>
+  <p class="bts-intro reveal">Music video production isn't far from what T&DSHOTS does every day — reading a location, finding the light, capturing a moment that feels real. Here's how Tom approached it.</p>
   <div class="bts-steps">
-    <div class="bts-step">
+    <div class="bts-step reveal">
       <div class="bts-num">01</div>
       <div class="bts-icon">📍</div>
-      <div class="bts-title">Location Scouting</div>
-      <p class="bts-desc">Finding spots that work on camera — the same instinct used to spot a great car works just as well for finding the perfect street backdrop for a music video.</p>
+      <div class="bts-step-title">Location Scouting</div>
+      <p class="bts-step-desc">Finding spots that work on camera — the same instinct used to spot a great car works just as well for finding the perfect street backdrop for a music video.</p>
     </div>
-    <div class="bts-step">
+    <div class="bts-step reveal">
       <div class="bts-num">02</div>
       <div class="bts-icon">🎬</div>
-      <div class="bts-title">Shooting</div>
-      <p class="bts-desc">Tom handled the camera work throughout — capturing performance, movement and atmosphere across multiple takes and locations to bring the track to life visually.</p>
+      <div class="bts-step-title">Shooting</div>
+      <p class="bts-step-desc">Tom handled the camera work throughout — capturing performance, movement and atmosphere across multiple takes and locations to bring the track to life visually.</p>
     </div>
-    <div class="bts-step">
+    <div class="bts-step reveal">
       <div class="bts-num">03</div>
       <div class="bts-icon">✂️</div>
-      <div class="bts-title">The Edit</div>
-      <p class="bts-desc">Raw footage into a finished music video — cutting to the beat, matching the energy of the track, and delivering something GeorgieLVP could be proud of.</p>
+      <div class="bts-step-title">The Edit</div>
+      <p class="bts-step-desc">Raw footage into a finished music video — cutting to the beat, matching the energy of the track, and delivering something GeorgieLVP could be proud of.</p>
     </div>
   </div>
 </section>
 
-<!-- Tom -->
-<section class="tom-section" id="tom">
-  <div class="tom-visual">
-    <div class="tom-card">
-      <div class="tom-initial">T</div>
+<!-- MEET TOM -->
+<section class="tom" id="tom">
+  <div class="tom-grid">
+    <div class="tom-card reveal">
+      <div class="tom-init">T</div>
       <div class="tom-name">Tom</div>
       <div class="tom-role">Co-Founder — T&DSHOTS</div>
-      <p class="tom-bio">The everyday car guy with an eye for the details most people walk past. Whether it's a parked car, a street at night, or a music video shoot — Tom finds the shot. Hobbies, real life and a genuine love of cars and the world around him drives everything he creates.</p>
+      <p class="tom-bio">The everyday car guy with an eye for the details most people walk past. Whether it's a parked car, a street at night, or a music video shoot — Tom finds the shot. A genuine love of cars and the world around him drives everything he creates.</p>
     </div>
-  </div>
-
-  <div class="tom-text">
-    <div class="section-label">The Person</div>
-    <h2 class="section-title">MEET<br>TOM.</h2>
-    <p class="tom-desc">Tom is the co-founder of T&DSHOTS and the kind of person who notices what everyone else walks past. Everyday cars, everyday streets — but always something worth capturing.</p>
-    <p class="tom-desc">The music video for GeorgieLVP is just one example of what Tom brings beyond automotive photography. It's the same passion, the same eye, just pointed in a different direction.</p>
-    <p class="tom-desc">We're small, we're new, and we're just getting started — but projects like this show exactly what T&DSHOTS is capable of when we turn our lens on the world around us.</p>
-    <a href="index.html#about" class="btn-primary" style="margin-top:32px;">
-      Meet The Team →
-    </a>
+    <div class="reveal">
+      <div class="sec-label">The Person</div>
+      <h2 class="sec-title">MEET<br>TOM.</h2>
+      <p class="tom-desc">Tom is the co-founder of T&DSHOTS and the kind of person who notices what everyone else walks past. Everyday cars, everyday streets — but always something worth capturing.</p>
+      <p class="tom-desc">The music video for GeorgieLVP is just one example of what Tom brings beyond automotive photography. Same passion, same eye, just pointed in a different direction.</p>
+      <p class="tom-desc">We're small, we're new, and we're just getting started — but projects like this show exactly what T&DSHOTS is capable of.</p>
+      <a href="index.html#team" class="btn btn-orange" style="margin-top:32px;">Meet The Full Team →</a>
+    </div>
   </div>
 </section>
 
-<!-- Video Gallery -->
-<section class="video-gallery" id="videos">
-  <div class="section-label">Work</div>
-  <h2 class="section-title">THE<br>VIDEOS.</h2>
-  <p class="vg-intro">Every project Tom has worked on, in one place. To add a new video, open <strong>tom.html</strong> in VS Code, find the slot you want, and replace <strong>YOUR_VIDEO_ID</strong> with the ID from the YouTube URL.</p>
-
+<!-- VIDEO GALLERY -->
+<section class="vg" id="vg">
+  <div class="sec-label reveal">Work</div>
+  <h2 class="sec-title reveal">ALL THE<br>VIDEOS.</h2>
+  <p class="vg-intro reveal">Every project Tom has worked on, in one place.</p>
   <div class="vg-grid">
-
-    <!-- ======================================================
-         VIDEO 1 — GeorgieLVP Music Video (already filled in)
-         YouTube ID: 6E5y0JwYfHI
-         ====================================================== -->
-    <div class="vg-item">
+    <div class="vg-item reveal">
       <div class="vg-embed">
         <iframe src="https://www.youtube.com/embed/6E5y0JwYfHI" title="GeorgieLVP Music Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
@@ -1020,14 +351,9 @@
         <div class="vg-sub">Directed & Edited by Tom</div>
       </div>
     </div>
-
-    <!-- ======================================================
-         VIDEO 2 — YouTube Short
-         YouTube ID: v0ONbZGLTz8
-         ====================================================== -->
-    <div class="vg-item">
-      <div class="vg-embed vg-embed-short">
-        <iframe src="https://www.youtube.com/embed/v0ONbZGLTz8" title="Tom — Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="vg-item reveal">
+      <div class="vg-embed short">
+        <iframe src="https://www.youtube.com/embed/v0ONbZGLTz8" title="Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="vg-meta">
         <div class="vg-tag">Short</div>
@@ -1035,14 +361,9 @@
         <div class="vg-sub">Filmed by Tom</div>
       </div>
     </div>
-
-    <!-- ======================================================
-         VIDEO 3 — YouTube Short
-         YouTube ID: yC3LQYFCLYA
-         ====================================================== -->
-    <div class="vg-item">
-      <div class="vg-embed vg-embed-short">
-        <iframe src="https://www.youtube.com/embed/yC3LQYFCLYA" title="Tom — Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="vg-item reveal">
+      <div class="vg-embed short">
+        <iframe src="https://www.youtube.com/embed/yC3LQYFCLYA" title="Short" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div class="vg-meta">
         <div class="vg-tag">Short</div>
@@ -1050,117 +371,111 @@
         <div class="vg-sub">Filmed by Tom</div>
       </div>
     </div>
-
-    <!-- ======================================================
-         VIDEO 4 — TO ADD: same as above
-         ====================================================== -->
-    <div class="vg-item">
+    <div class="vg-item reveal">
       <div class="vg-embed vg-empty">
-        <div class="vg-empty-inner">
-          <div class="vg-empty-icon">▶</div>
-          <div class="vg-empty-title">Slot 4</div>
-          <div class="vg-empty-hint">Replace vg-empty div with:<br><code>&lt;iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"&gt;&lt;/iframe&gt;</code></div>
-        </div>
+        <div class="vg-empty-icon">▶</div>
+        <div class="vg-empty-text">Coming Soon</div>
       </div>
       <div class="vg-meta">
         <div class="vg-tag">Coming Soon</div>
-        <div class="vg-title">Your Video Title</div>
-        <div class="vg-sub">Replace with description</div>
+        <div class="vg-title">Next Project</div>
+        <div class="vg-sub">Watch this space</div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- CTA Strip -->
+<!-- CTA STRIP -->
 <div class="cta-strip">
   <div>
-    <div class="cta-strip-text">SEEN SOMETHING<br>YOU LIKE?</div>
-    <div class="cta-strip-sub">Head back to T&DSHOTS and see the full automotive gallery.</div>
+    <div class="cta-strip-title">SEEN ENOUGH?</div>
+    <div class="cta-strip-sub">Head back and see the full automotive gallery.</div>
   </div>
-  <a href="index.html" class="btn-white">
-    ← Back to T&DSHOTS
-  </a>
+  <a href="index.html" class="btn-white">← Back to T&DSHOTS</a>
 </div>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
-  <a href="index.html"><img src="logo.png" alt="T&D SHOTS" style="height:40px;width:auto;display:block;"></a>
+  <a href="index.html"><img src="logo.png" alt="T&D SHOTS" style="height:36px;width:auto;" onerror="this.style.display='none'"></a>
   <ul class="footer-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#gallery">Gallery</a></li>
     <li><a href="index.html#youtube">YouTube</a></li>
     <li><a href="https://www.youtube.com/@dntshots" target="_blank">@dntshots</a></li>
     <li><a href="https://www.instagram.com/emdnifrevenllouy?igsh=bXNiNDZzcm4ydnRs" target="_blank">Instagram</a></li>
-    <li><a href="#" onclick="this.href='mailto:'+atob('ZG50c2hvb3RzQGdtYWlsLmNvbQ==')">dntshoots&#64;gmail.com</a></li>
+    <li><a href="https://buymeacoffee.com/tndshots" target="_blank" style="color:var(--orange);">☕ Coffee</a></li>
   </ul>
   <div class="footer-copy">© 2026 T&DSHOTS</div>
 </footer>
 
 <script>
-  // ── Cursor ──
-  var cur  = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  var mx = -200, my = -200, rx = -200, ry = -200;
+// ─── CURSOR ───────────────────────────────
+var DOT  = document.getElementById('cur');
+var RING = document.getElementById('cur-ring');
+var mx = -300, my = -300, rx = -300, ry = -300;
 
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX;
-    my = e.clientY;
-    cur.style.transform = 'translate(' + (mx - 6) + 'px,' + (my - 6) + 'px)';
-    ring.style.transform = 'translate(' + (mx - 20) + 'px,' + (my - 20) + 'px)';
+document.addEventListener('mousemove', function(e) {
+  mx = e.clientX;
+  my = e.clientY;
+  DOT.style.transform = 'translate(' + (mx-5) + 'px,' + (my-5) + 'px)';
+});
+
+(function loop() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  RING.style.transform = 'translate(' + (rx-18) + 'px,' + (ry-18) + 'px)';
+  requestAnimationFrame(loop);
+})();
+
+document.addEventListener('mouseover', function(e) {
+  var over = e.target.closest('a,button,select,input,textarea');
+  RING.style.width  = over ? '54px' : '36px';
+  RING.style.height = over ? '54px' : '36px';
+  RING.style.opacity = over ? '0.4' : '0.7';
+  RING.style.borderColor = over ? 'var(--white)' : 'var(--orange)';
+});
+
+// ─── NAV ──────────────────────────────────
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ─── HAMBURGER ────────────────────────────
+var burger  = document.getElementById('burger');
+var mobMenu = document.getElementById('mobMenu');
+burger.addEventListener('click', function() {
+  var open = mobMenu.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mob-cta').forEach(function(l) {
+  l.addEventListener('click', function() {
+    mobMenu.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
   });
+});
 
-  (function loop() {
-    rx += (mx - rx) * 0.13;
-    ry += (my - ry) * 0.13;
-    ring.style.transform = 'translate(' + (rx - 20) + 'px,' + (ry - 20) + 'px)';
-    requestAnimationFrame(loop);
-  })();
-
-  document.querySelectorAll('a, button').forEach(function(el) {
-    el.addEventListener('mouseenter', function() {
-      cur.style.width = '20px'; cur.style.height = '20px';
-      ring.style.width = '56px'; ring.style.height = '56px';
-    });
-    el.addEventListener('mouseleave', function() {
-      cur.style.width = '12px'; cur.style.height = '12px';
-      ring.style.width = '40px'; ring.style.height = '40px';
-    });
+// ─── SMOOTH SCROLL ────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var t = document.querySelector(this.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
+});
 
-  window.addEventListener('touchstart', function() {
-    cur.style.display = 'none';
-    ring.style.display = 'none';
-    document.documentElement.style.cursor = 'auto';
-    document.body.style.cursor = 'auto';
-  }, { once: true, passive: true });
-
-  // Hamburger
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.contains('open');
-    hamburger.classList.toggle('open', !isOpen);
-    mobileMenu.classList.toggle('open', !isOpen);
-    document.body.style.overflow = !isOpen ? 'hidden' : '';
+// ─── REVEAL ───────────────────────────────
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(en) {
+    if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
   });
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  // Fade in on scroll
-  const observer = new IntersectionObserver(entries => {
-  
+// ─── HERO IMAGE ───────────────────────────
+setTimeout(function() {
+  document.getElementById('heroImg').classList.add('loaded');
+}, 300);
+</script>
+</body>
+</html>
