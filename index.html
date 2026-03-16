@@ -544,10 +544,15 @@ function initMap() {
 
   map = L.map('map', { zoomControl: true }).setView([53.4084, -2.9916], 11);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© OpenStreetMap © CARTO',
-    subdomains: 'abcd', maxZoom: 19
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 19
   }).addTo(map);
+
+  // Force correct size immediately and after a short delay
+  map.invalidateSize();
+  setTimeout(function() { map.invalidateSize(); }, 250);
+  setTimeout(function() { map.invalidateSize(); }, 600);
 
   var pinIcon = L.divIcon({
     className: '',
@@ -567,11 +572,9 @@ function initMap() {
       .then(function(data) {
         var addr = data.display_name || (selectedLat + ', ' + selectedLng);
         document.getElementById('mapCoords').textContent = '📍 ' + addr;
-        if (!document.getElementById('lloc').value) {
-          var parts = data.address || {};
-          var short = parts.suburb || parts.village || parts.town || parts.city || parts.county || '';
-          if (short) document.getElementById('lloc').value = short;
-        }
+        var parts = data.address || {};
+        var short = parts.suburb || parts.village || parts.town || parts.city || parts.county || '';
+        if (short) document.getElementById('lloc').value = short;
       })
       .catch(function() {
         document.getElementById('mapCoords').textContent = '📍 ' + selectedLat + ', ' + selectedLng;
@@ -644,10 +647,34 @@ document.getElementById('lsub').addEventListener('click', function() {
 document.getElementById('fsub').addEventListener('click', function() {
   var name  = document.getElementById('fname').value.trim();
   var email = document.getElementById('femail').value.trim();
+  var type  = document.getElementById('ftype').value;
   var msg   = document.getElementById('fmsg').value.trim();
+
   if (!name || !email || !msg) { alert('Please fill in all fields.'); return; }
-  document.getElementById('fstatus').style.display = 'block';
-  ['fname','femail','fmsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+
+  var btn = document.getElementById('fsub');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  emailjs.send('service_g7uurlg', 'template_79edhtd', {
+    from_name:    name,
+    from_email:   email,
+    project_type: type || 'Not specified',
+    message:      msg
+  })
+  .then(function() {
+    document.getElementById('fstatus').style.display = 'block';
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+    ['fname','femail','fmsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+    document.getElementById('ftype').selectedIndex = 0;
+  })
+  .catch(function(err) {
+    alert('Something went wrong. Please try again.');
+    console.error('EmailJS error:', err);
+    btn.textContent = 'Send Message →';
+    btn.disabled = false;
+  });
 });
 </script>
 </body>
