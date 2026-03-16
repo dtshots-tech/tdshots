@@ -43,9 +43,10 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 2147483647;
-    top: -50px;
-    left: -50px;
-    opacity: 1;
+    top: 0;
+    left: 0;
+    transform: translate(-200px,-200px);
+    will-change: transform;
     transition: width 0.15s, height 0.15s;
   }
   .cursor-ring {
@@ -56,9 +57,10 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 2147483646;
-    top: -50px;
-    left: -50px;
-    opacity: 1;
+    top: 0;
+    left: 0;
+    transform: translate(-200px,-200px);
+    will-change: transform;
     transition: width 0.15s, height 0.15s;
   }
   @media (hover: none) and (pointer: coarse) {
@@ -1099,20 +1101,19 @@
   // ── Cursor ──
   var cur  = document.getElementById('cursor');
   var ring = document.getElementById('cursorRing');
-  var mx = -50, my = -50, rx = -50, ry = -50;
+  var mx = -200, my = -200, rx = -200, ry = -200;
 
   document.addEventListener('mousemove', function(e) {
     mx = e.clientX;
     my = e.clientY;
-    cur.style.left = (mx - 6) + 'px';
-    cur.style.top  = (my - 6) + 'px';
+    cur.style.transform = 'translate(' + (mx - 6) + 'px,' + (my - 6) + 'px)';
+    ring.style.transform = 'translate(' + (mx - 20) + 'px,' + (my - 20) + 'px)';
   });
 
   (function loop() {
-    rx += (mx - rx - 20) * 0.13;
-    ry += (my - ry - 20) * 0.13;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.transform = 'translate(' + (rx - 20) + 'px,' + (ry - 20) + 'px)';
     requestAnimationFrame(loop);
   })();
 
@@ -1132,7 +1133,7 @@
     ring.style.display = 'none';
     document.documentElement.style.cursor = 'auto';
     document.body.style.cursor = 'auto';
-  }, { once: true });
+  }, { once: true, passive: true });
 
   // Hamburger
   const hamburger = document.getElementById('hamburger');
