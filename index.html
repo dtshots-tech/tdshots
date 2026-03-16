@@ -208,6 +208,11 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   .form-row { grid-template-columns: 1fr; }
   .hero-btns { flex-direction: column; align-items: flex-start; }
   .btn { width: 100%; justify-content: center; }
+  /* Map mobile fixes */
+  #map { height: 280px; }
+  .map-instruction { font-size: 10px; }
+  .form-submit { width: 100%; text-align: center; justify-content: center; }
+  .form-group input, .form-group textarea, .form-group select { font-size: 16px; /* prevents iOS zoom on focus */ }
 }
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </style>
@@ -238,6 +243,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <a href="#gallery" class="mob-link">Gallery</a>
   <a href="#youtube" class="mob-link">YouTube</a>
   <a href="#team" class="mob-link">Team</a>
+  <a href="#location" class="mob-link">Locations</a>
   <a href="#contact" class="mob-link">Contact</a>
   <a href="TomsBTS.html" class="mob-cta">Tom's BTS</a>
 </div>
@@ -454,6 +460,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 // ─── CURSOR ───────────────────────────────
 var DOT  = document.getElementById('cur');
@@ -591,17 +598,46 @@ function initMap() {
 // Init immediately (Leaflet is loaded sync above), fallback on DOMContentLoaded
 if (typeof L !== 'undefined') { initMap(); } else { document.addEventListener('DOMContentLoaded', initMap); }
 
+// ─── EMAILJS INIT ─────────────────────────
+emailjs.init('uq2xMcj3Wtw2WHsdE');
+
 // ─── LOCATION FORM ────────────────────────
 document.getElementById('lsub').addEventListener('click', function() {
-  var name = document.getElementById('lname').value.trim();
-  var loc  = document.getElementById('lloc').value.trim();
+  var name  = document.getElementById('lname').value.trim();
+  var loc   = document.getElementById('lloc').value.trim();
+  var date  = document.getElementById('ldate').value.trim();
+  var msg   = document.getElementById('lmsg').value.trim();
+  var coords = (selectedLat && selectedLng) ? selectedLat + ', ' + selectedLng : 'No pin dropped';
+
   if (!name || !loc) { alert('Please enter your name and a location.'); return; }
-  document.getElementById('lstatus').style.display = 'block';
-  ['lname','lloc','ldate','lmsg'].forEach(function(id) { document.getElementById(id).value = ''; });
-  if (marker) { map.removeLayer(marker); marker = null; }
-  document.getElementById('mapCoords').textContent = 'No location selected yet';
-  document.getElementById('mapClear').classList.remove('visible');
-  selectedLat = null; selectedLng = null;
+
+  var btn = document.getElementById('lsub');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  emailjs.send('service_g7uurlg', 'template_d95kyq4', {
+    from_name:   name,
+    location:    loc,
+    event_date:  date || 'Not specified',
+    coordinates: coords,
+    message:     msg  || 'No message added'
+  })
+  .then(function() {
+    document.getElementById('lstatus').style.display = 'block';
+    btn.textContent = 'Submit Location →';
+    btn.disabled = false;
+    ['lname','lloc','ldate','lmsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+    if (marker) { map.removeLayer(marker); marker = null; }
+    document.getElementById('mapCoords').textContent = 'No location selected yet';
+    document.getElementById('mapClear').classList.remove('visible');
+    selectedLat = null; selectedLng = null;
+  })
+  .catch(function(err) {
+    alert('Something went wrong. Please try again.');
+    console.error('EmailJS error:', err);
+    btn.textContent = 'Submit Location →';
+    btn.disabled = false;
+  });
 });
 
 // ─── FORM ─────────────────────────────────
