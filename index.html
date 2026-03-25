@@ -233,6 +233,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#location">Locations</a></li>
+    <li><a href="carsets.html">Car Sets</a></li>
     <li><a href="TomsBTS.html" class="nav-cta">Tom's BTS</a></li>
   </ul>
   <button class="burger" id="burger"><span></span><span></span><span></span></button>
@@ -245,6 +246,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <a href="#team" class="mob-link">Team</a>
   <a href="#location" class="mob-link">Locations</a>
   <a href="#contact" class="mob-link">Contact</a>
+  <a href="carsets.html" class="mob-link">Car Sets</a>
   <a href="TomsBTS.html" class="mob-cta">Tom's BTS</a>
 </div>
 
@@ -419,7 +421,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
       <div class="sec-label">Get In Touch</div>
       <h2 class="sec-title">LET'S SHOOT.</h2>
       <div class="contact-info">
-        <div class="ci"><div class="ci-label">Email</div><a href="#" id="emailLink">dntshoots@gmail.com</a></div>
+        <div class="ci"><div class="ci-label">Email</div><a href="#" id="emailLink"><span class="__cf_email__" data-cfemail="abcfc5dfd8c3c4c4dfd8ebccc6cac2c785c8c4c6">[email&#160;protected]</span></a></div>
         <div class="ci"><div class="ci-label">YouTube</div><a href="https://www.youtube.com/@dntshots" target="_blank">@dntshots</a></div>
         <div class="ci"><div class="ci-label">Instagram</div><a href="https://www.instagram.com/emdnifrevenllouy/" target="_blank">@emdnifrevenllouy</a></div>
         <div class="ci"><div class="ci-label">Based</div><p>Liverpool, UK</p></div>
@@ -459,7 +461,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <div class="footer-copy">© 2026 T&DSHOTS</div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
 // ─── CURSOR ───────────────────────────────
@@ -670,12 +672,3 @@ document.getElementById('fsub').addEventListener('click', function() {
     document.getElementById('ftype').selectedIndex = 0;
   })
   .catch(function(err) {
-    alert('Something went wrong. Please try again.');
-    console.error('EmailJS error:', err);
-    btn.textContent = 'Send Message →';
-    btn.disabled = false;
-  });
-});
-</script>
-</body>
-</html>
