@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Behind The Lens — Tom | T&DSHOTS</title>
+<meta name="description" content="Tom's behind the scenes page — music videos, short films and every project he's put his lens on. T&DSHOTS Liverpool automotive photography.">
+<meta property="og:title" content="Behind The Lens — Tom | T&DSHOTS">
+<meta property="og:description" content="Music videos, short films and automotive photography from Tom at T&DSHOTS Liverpool.">
+<meta property="og:url" content="https://tdshots.uk/TomsBTS.html">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://tdshots.uk/TomsBTS.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
@@ -195,9 +202,31 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   .hero-btns { flex-direction: column; align-items: flex-start; }
   .btn { width: 100%; justify-content: center; }
 }
+
+/* COOKIE CONSENT */
+#cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(16,16,16,0.98); border-top: 1px solid var(--border); padding: 18px 60px; display: flex; justify-content: space-between; align-items: center; gap: 20px; z-index: 9999; flex-wrap: wrap; transform: translateY(100%); transition: transform .4s ease; }
+#cookie-banner.show { transform: translateY(0); }
+.cookie-text { font-size: 12px; color: var(--light); line-height: 1.7; flex: 1; min-width: 260px; }
+.cookie-text a { color: var(--orange); text-decoration: underline; }
+.cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+.cookie-accept { background: var(--orange); color: var(--white); border: none; padding: 10px 24px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; transition: opacity .3s; }
+.cookie-accept:hover { opacity: .85; }
+.cookie-decline { background: none; color: var(--grey); border: 1px solid var(--border); padding: 10px 20px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-family: 'DM Sans', sans-serif; cursor: pointer; transition: color .3s; }
+.cookie-decline:hover { color: var(--white); }
+@media (max-width: 700px) { #cookie-banner { padding: 16px 22px; } }
 </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4682659743955327" crossorigin="anonymous"></script>
 </head>
 <body>
+
+
+<div id="cookie-banner">
+  <p class="cookie-text">We use cookies for analytics and advertising (Google AdSense). By clicking Accept you consent to our use of cookies as described in our <a href="privacy.html">Privacy Policy</a>.</p>
+  <div class="cookie-btns">
+    <button class="cookie-decline" id="cookieDecline">Decline</button>
+    <button class="cookie-accept" id="cookieAccept">Accept</button>
+  </div>
+</div>
 
 <div id="cur"></div>
 <div id="cur-ring"></div>
@@ -214,7 +243,6 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <li><a href="#tom">Meet Tom</a></li>
     <li><a href="#gear">Gear</a></li>
     <li><a href="#vg">All Videos</a></li>
-    <li><a href="carsets.html">Car Sets</a></li>
     <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
   </ul>
   <button class="burger" id="burger"><span></span><span></span><span></span></button>
@@ -227,7 +255,6 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <a href="#creators" class="mob-link">Creators</a>
   <a href="#tom" class="mob-link">Meet Tom</a>
   <a href="#vg" class="mob-link">All Videos</a>
-  <a href="carsets.html" class="mob-link">Car Sets</a>
   <a href="index.html#contact" class="mob-cta">Contact</a>
 </div>
 
@@ -467,6 +494,8 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <li><a href="https://www.youtube.com/@dntshots" target="_blank">@dntshots</a></li>
     <li><a href="https://www.instagram.com/emdnifrevenllouy?igsh=bXNiNDZzcm4ydnRs" target="_blank">Instagram</a></li>
     <li><a href="https://buymeacoffee.com/tndshots" target="_blank" style="color:var(--orange);">☕ Coffee</a></li>
+    <li><a href="privacy.html">Privacy Policy</a></li>
+    <li><a href="terms.html">Terms</a></li>
   </ul>
   <div class="footer-copy">© 2026 T&DSHOTS</div>
 </footer>
@@ -539,6 +568,23 @@ document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 setTimeout(function() {
   document.getElementById('heroImg').classList.add('loaded');
 }, 300);
+
+// ─── COOKIE CONSENT ───────────────────────
+(function() {
+  var banner = document.getElementById('cookie-banner');
+  if (!localStorage.getItem('cookieConsent')) {
+    setTimeout(function() { banner.classList.add('show'); }, 800);
+  }
+  document.getElementById('cookieAccept').addEventListener('click', function() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    banner.classList.remove('show');
+  });
+  document.getElementById('cookieDecline').addEventListener('click', function() {
+    localStorage.setItem('cookieConsent', 'declined');
+    banner.classList.remove('show');
+  });
+})();
+
 </script>
 </body>
 </html>
