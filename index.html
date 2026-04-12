@@ -150,17 +150,20 @@ section { padding: 100px 60px; }
 .team-link { display: inline-block; margin-top: 18px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color .3s; }
 .team-link:hover { color: var(--orange); }
 
-/* BTS PROMO */
-.bts-promo { background: var(--off); }
-.bts-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-.bts-card { background: var(--card); border: 1px solid var(--border); overflow: hidden; }
-.bts-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); padding: 18px 20px 0; }
-.bts-ttl { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; padding: 8px 20px 4px; }
-.bts-sub { font-size: 11px; color: var(--grey); padding: 0 20px 14px; }
-.bts-thumb { position: relative; padding-bottom: 56.25%; }
-.bts-thumb iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-.bts-cta { display: block; padding: 14px 20px; border-top: 1px solid var(--border); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); text-decoration: none; transition: background .2s; }
-.bts-cta:hover { background: rgba(232,130,12,.06); }
+/* BTS PROFILE CARDS */
+.bts-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 3px; }
+.bts-profile-card { background: var(--off); border-top: 2px solid var(--border); padding: 44px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 0; transition: background .3s, border-color .3s; position: relative; overflow: hidden; }
+.bts-profile-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+.bts-profile-card:hover { background: #131313; }
+.bts-profile-card:hover::before { transform: scaleX(1); }
+.bts-profile-top { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+.bts-profile-init { width: 52px; height: 52px; background: var(--orange); font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.bts-profile-label { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+.bts-profile-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; line-height: 1; }
+.bts-profile-desc { font-size: 14px; line-height: 1.85; color: var(--light); margin-bottom: 22px; }
+.bts-profile-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.bts-profile-tags span { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); border: 1px solid var(--border); padding: 5px 12px; }
+.bts-profile-cta { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange); margin-top: auto; }
 
 /* LOCATION */
 .location-section { background: var(--black); }
@@ -227,6 +230,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .gitem, .gitem:nth-child(n) { grid-column: span 1 !important; min-height: 200px !important; }
   .yt-grid, .team-grid { grid-template-columns: 1fr; }
+  .bts-cards { grid-template-columns: 1fr; }
   footer { flex-direction: column; text-align: center; padding: 28px 22px; }
   .footer-links { justify-content: center; }
   .form-row { grid-template-columns: 1fr; }
@@ -309,8 +313,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
     <li><a href="#team">Team</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#location">Locations</a></li>
-    <li><a href="carsets.html">Car Sets</a></li>
-    <li><a href="TomsBTS.html" class="nav-cta">Tom's BTS</a></li>
+    <li><a href="carsets.html" class="nav-cta">Car Sets</a></li>
   </ul>
   <button class="burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
@@ -322,8 +325,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
   <a href="#team" class="mob-link">Team</a>
   <a href="#location" class="mob-link">Locations</a>
   <a href="#contact" class="mob-link">Contact</a>
-  <a href="carsets.html" class="mob-link">Car Sets</a>
-  <a href="TomsBTS.html" class="mob-cta">Tom's BTS</a>
+  <a href="carsets.html" class="mob-cta">Car Sets</a>
 </div>
 
 <section class="hero" id="home">
@@ -414,26 +416,44 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
       <div class="team-role">Co-Founder — Street & Print</div>
       <div class="team-name">Deano</div>
       <p class="team-desc">The one who spots the car before anyone else. Deano brings the instinct for the right moment and the drive to put a print on a windscreen and make someone's day.</p>
-      <a href="https://www.instagram.com/deano31072/" target="_blank" class="team-link">Instagram →</a>
+      <a href="DeansBTS.html" class="team-link">Behind The Lens →</a>
     </div>
   </div>
-</section>
 
-<section class="bts-promo">
-  <div class="bts-inner">
-    <div class="reveal">
-      <div class="sec-label">Behind The Lens</div>
-      <h2 class="sec-title">MORE THAN<br>JUST CARS.</h2>
-      <p class="about-desc">T&DSHOTS goes beyond cars. Tom's behind the scenes page covers music videos, short films and every project he's put his lens on.</p>
-      <a href="TomsBTS.html" class="btn btn-orange" style="margin-top:32px;">See Tom's Work →</a>
-    </div>
-    <div class="bts-card reveal">
-      <div class="bts-tag">Featured Project</div>
-      <div class="bts-ttl">GeorgieLVP — Spin Back</div>
-      <div class="bts-sub">Directed & Edited by Tom</div>
-      <div class="bts-thumb"><iframe src="https://www.youtube.com/embed/6E5y0JwYfHI" title="GeorgieLVP" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-      <a href="TomsBTS.html" class="bts-cta">View All Projects →</a>
-    </div>
+  <!-- BTS Cards -->
+  <div class="bts-cards reveal">
+    <a href="TomsBTS.html" class="bts-profile-card">
+      <div class="bts-profile-top">
+        <div class="bts-profile-init">T</div>
+        <div>
+          <div class="bts-profile-label">Behind The Lens</div>
+          <div class="bts-profile-name">Tom's Page</div>
+        </div>
+      </div>
+      <p class="bts-profile-desc">Music videos, short films, automotive shoots — every project Tom has put his lens on. See the full picture.</p>
+      <div class="bts-profile-tags">
+        <span>Music Video</span>
+        <span>Videography</span>
+        <span>Sony A6400</span>
+      </div>
+      <div class="bts-profile-cta">View Tom's BTS →</div>
+    </a>
+    <a href="DeansBTS.html" class="bts-profile-card">
+      <div class="bts-profile-top">
+        <div class="bts-profile-init">D</div>
+        <div>
+          <div class="bts-profile-label">Behind The Lens</div>
+          <div class="bts-profile-name">Deano's Page</div>
+        </div>
+      </div>
+      <p class="bts-profile-desc">The street instinct, the spots, the prints on windscreens — everything behind T&DSHOTS from the co-founder who finds the cars.</p>
+      <div class="bts-profile-tags">
+        <span>Street Photography</span>
+        <span>Liverpool</span>
+        <span>Content Creator</span>
+      </div>
+      <div class="bts-profile-cta">View Deano's BTS →</div>
+    </a>
   </div>
 </section>
 
@@ -497,7 +517,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
       <div class="sec-label">Get In Touch</div>
       <h2 class="sec-title">LET'S SHOOT.</h2>
       <div class="contact-info">
-        <div class="ci"><div class="ci-label">Email</div><a href="#" id="emailLink">dntshoots@gmail.com</a></div>
+        <div class="ci"><div class="ci-label">Email</div><a href="#" id="emailLink"><span class="__cf_email__" data-cfemail="77131903041f1818030437101a161e1b5914181a">[email&#160;protected]</span></a></div>
         <div class="ci"><div class="ci-label">YouTube</div><a href="https://www.youtube.com/@dntshots" target="_blank">@dntshots</a></div>
         <div class="ci"><div class="ci-label">Instagram</div><a href="https://www.instagram.com/emdnifrevenllouy/" target="_blank">@emdnifrevenllouy</a></div>
         <div class="ci"><div class="ci-label">Based</div><p>Liverpool, UK</p></div>
@@ -541,7 +561,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
 </footer>
 
 <!-- External scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
@@ -705,12 +725,4 @@ document.getElementById('fsub').addEventListener('click', function() {
     localStorage.setItem('cookieConsent', 'accepted');
     banner.classList.remove('show');
   });
-  document.getElementById('cookieDecline').addEventListener('click', function() {
-    localStorage.setItem('cookieConsent', 'declined');
-    banner.classList.remove('show');
-  });
-})();
-</script>
-
-</body>
-</html>
+  document.g
