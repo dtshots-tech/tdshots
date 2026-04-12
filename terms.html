@@ -57,6 +57,16 @@ footer { background: var(--card); padding: 28px 60px; display: flex; justify-con
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+
+  // Consent mode v2 — default denied until user accepts
+  gtag('consent', 'default', {
+    'ad_storage':              'denied',
+    'ad_user_data':            'denied',
+    'ad_personalization':      'denied',
+    'analytics_storage':       'denied',
+    'wait_for_update':         500
+  });
+
   gtag('js', new Date());
   gtag('config', 'G-WG93QG05LM');
 </script>
@@ -133,7 +143,7 @@ footer { background: var(--card); padding: 28px 60px; display: flex; justify-con
 
   <h2>Intellectual Property</h2>
   <p>All photographs on this website are the original work of T&DSHOTS (Deano and Tom) and are protected by copyright. The © emdnifrevenllouy watermark identifies our work. Unauthorised reproduction, distribution or use of our images is strictly prohibited.</p>
-  <p>If you would like to use one of our images, please contact us at <a href="/cdn-cgi/l/email-protection#87e3e9f3f4efe8e8f3f4c7e0eae6eeeba9e4e8ea"><span class="__cf_email__" data-cfemail="24404a50574c4b4b5057644349454d480a474b49">[email&#160;protected]</span></a> to discuss licensing.</p>
+  <p>If you would like to use one of our images, please contact us at <a href="mailto:dntshoots@gmail.com">dntshoots@gmail.com</a> to discuss licensing.</p>
 
   <h2>Photography in Public Spaces</h2>
   <p>All photographs on this site are taken in publicly accessible locations. We do not photograph private property without permission. Vehicles are photographed in public spaces as permitted under UK law. We do not store or share personal information about vehicle owners.</p>
@@ -158,7 +168,7 @@ footer { background: var(--card); padding: 28px 60px; display: flex; justify-con
 
   <h2>Contact</h2>
   <p>For any questions about these Terms, contact us at:<br>
-  <a href="/cdn-cgi/l/email-protection#aecac0daddc6c1c1daddeec9c3cfc7c280cdc1c3"><span class="__cf_email__" data-cfemail="06626872756e6969727546616b676f6a2865696b">[email&#160;protected]</span></a><br>
+  <a href="mailto:dntshoots@gmail.com">dntshoots@gmail.com</a><br>
   T&DSHOTS — Liverpool, UK</p>
 </div>
 
@@ -175,6 +185,8 @@ footer { background: var(--card); padding: 28px 60px; display: flex; justify-con
     <li><a href="terms.html">Terms</a></li>
   </ul>
   <div class="footer-copy">© 2026 T&DSHOTS</div>
+
+  <p style="font-size:10px;color:var(--grey);letter-spacing:1px;width:100%;margin-top:8px;">We improve our products and advertising by using Microsoft Clarity to see how you use our website. By using our site, you agree that we and Microsoft can collect and use this data. Our <a href="privacy.html" style="color:var(--orange);">privacy policy</a> has more details.</p>
 </footer>
 
 <script>
