@@ -1,6 +1,6 @@
 (function () {
   var GA_ID = 'G-WG93QG05LM';
-  var ADSENSE_CLIENT = 'ca-pub-5830581574523106';
+  var ADSENSE_CLIENT = 'ca-pub-4682659743955327';
   var CLARITY_ID = 'wahptqmnwv';
   var STORAGE_KEY = 'cookieConsent';
 
