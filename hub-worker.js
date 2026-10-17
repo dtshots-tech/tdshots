@@ -1,15 +1,18 @@
-const PASSWORD = 'Admin123';
 const COOKIE_NAME = 'tdshots_hub_auth';
-const COOKIE_SECRET = 'tdshots-secret-x9k2m7'; // change this to anything random if you like
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const url = new URL(request.url);
 
     // Only protect /hub
     if (!url.pathname.startsWith('/hub')) {
       return fetch(request);
     }
+
+    // PASSWORD and COOKIE_SECRET are set as Worker secrets (Settings > Variables and Secrets)
+    // — never hardcode them here, this file is committed to a public repo.
+    const PASSWORD = env.HUB_PASSWORD;
+    const COOKIE_SECRET = env.HUB_COOKIE_SECRET;
 
     // Check for valid auth cookie
     const cookie = request.headers.get('Cookie') || '';
