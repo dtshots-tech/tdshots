@@ -836,6 +836,7 @@ function updateCounts() {
   document.getElementById('countJdm').textContent = counts.jdm;
   document.getElementById('countMuscle').textContent = counts.muscle;
   document.getElementById('countSport').textContent = counts.sport;
+  document.getElementById('setsCount').textContent = counts.all + (counts.all === 1 ? ' Set' : ' Sets');
 }
 updateCounts();
 
