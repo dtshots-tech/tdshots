@@ -210,6 +210,7 @@ footer { background: var(--card); padding: 36px 60px; display: flex; justify-con
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wahptqmnwv");</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-WG93QG05LM"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -866,22 +867,36 @@ document.querySelectorAll('.filter-btn').forEach(function(btn) {
 });
 
 // ─── FORM ─────────────────────────────────
+if (typeof emailjs !== 'undefined') { emailjs.init('uq2xMcj3Wtw2WHsdE'); }
+
 document.getElementById('csSubmit').addEventListener('click', function() {
   var name = document.getElementById('csName').value.trim();
   var car  = document.getElementById('csCar').value.trim();
+  var spec = document.getElementById('csSpec').value.trim();
+  var loc  = document.getElementById('csLoc').value.trim();
+  var msg  = document.getElementById('csMsg').value.trim();
   if (!name || !car) { alert('Please at least enter your name and the car make/model.'); return; }
   var btn = document.getElementById('csSubmit');
   btn.textContent = 'Sending...';
   btn.disabled = true;
-  // Simulated send (wire up EmailJS when ready)
-  setTimeout(function() {
+  var body = 'Car: ' + car
+    + '\nSpec (colour & year): ' + (spec || 'Not specified')
+    + '\nLocation / area: ' + (loc || 'Not specified')
+    + '\nNotes: ' + (msg || 'None');
+  emailjs.send('service_g7uurlg', 'template_79edhtd', {
+    from_name: name, from_email: 'no-reply@tdshots.uk', project_type: 'Car Submission', message: body
+  }).then(function() {
     document.getElementById('csStatus').style.display = 'block';
     btn.textContent = 'Submit Your Car →';
     btn.disabled = false;
     ['csName','csCar','csSpec','csLoc','csMsg'].forEach(function(id) {
       document.getElementById(id).value = '';
     });
-  }, 1200);
+  }).catch(function(err) {
+    alert('Something went wrong. Please try again.');
+    btn.textContent = 'Submit Your Car →';
+    btn.disabled = false;
+  });
 });
 
 // ─── COOKIE CONSENT ───────────────────────
